@@ -1,0 +1,18 @@
+.other-profile-details .profile-detail-tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 5px;
+}
+
+.profile-detail-tile span:nth-child(1) {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.profile-detail-tile span:nth-child(2) {
+  font-size: 13px;
+  font-weight: 700;
+  color: #a2a2a2;
+}

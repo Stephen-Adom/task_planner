@@ -1,0 +1,70 @@
+#attachment-container {
+  height: 100vh;
+  width: 100%;
+}
+
+.card-custom {
+  background-color: var(--base-color) !important;
+  box-shadow: none !important;
+}
+
+.card-label {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+}
+
+.attachment-card {
+  box-shadow: none !important;
+  border: 1px solid var(--card-border-color) !important;
+  background-color: var(--background-color) !important;
+  margin-bottom: 20px;
+  transition: 0.5s transform ease-in-out;
+}
+
+.attachment-card:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+}
+
+.attachment-card img {
+  width: 35%;
+}
+
+.attachment-card .card-body {
+  padding: 20px 19px !important;
+}
+
+.attachment-card .label {
+  padding: 12px !important;
+  border-radius: 7px;
+}
+
+.attachment-card .label:hover {
+  cursor: pointer;
+}
+
+.attachment-name {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+.group-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-color);
+  display: block;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  color: #0b9b94;
+}
+
+.card-header-tabs-line {
+  border-bottom: 1px solid var(--border-color) !important;
+}

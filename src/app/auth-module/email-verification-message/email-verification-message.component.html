@@ -1,0 +1,43 @@
+<div class="card card-custom" id="email-verification">
+  <div class="card-header">
+    <div class="card-title">
+      <span>REGISTRATION SUCCESSFUL</span>
+    </div>
+    <div class="card-toolbar">
+      <div class="email-verification-header text-center">
+        <span> <i class="fab fa-buffer"></i> </span>
+        <span>ARIA <span class="primary-color">PLANNER</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <h6 class="display-4">Your Email is on the way</h6>
+
+    <div class="mt-3">
+      <span class="d-block" style="font-size: 14px; font-weight: 500"
+        >We have sent an email with the verification link to your email address.
+        Please check your inbox and sign in using the link in your email. You
+        will not be able to access your account until you verify your email
+        address
+      </span>
+
+      <span class="d-block mt-3 text-danger font-weight-bold">
+        The link will expire in 3 hours!!!</span
+      >
+      <span class="d-block mt-3 font-weight-bold"
+        >NB: If you do not receive a verification email, please check your spam
+        folder!!
+      </span>
+    </div>
+
+    <div class="mt-3 text-center">
+      <button
+        (click)="close()"
+        type="button"
+        class="btn btn-success action-btns font-weight-bold"
+      >
+        OK
+      </button>
+    </div>
+  </div>
+</div>

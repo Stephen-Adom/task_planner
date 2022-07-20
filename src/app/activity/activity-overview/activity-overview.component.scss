@@ -1,0 +1,30 @@
+#activity-page {
+  width: 100%;
+  margin-top: 25px;
+}
+
+#activity-tile {
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background-color: var(--background-color);
+}
+
+#activity-tile .card-body {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+#activity-tile:hover {
+  cursor: pointer;
+}
+
+.activity-title {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.activity-subtitle {
+  font-weight: 500;
+  color: #adadad;
+}

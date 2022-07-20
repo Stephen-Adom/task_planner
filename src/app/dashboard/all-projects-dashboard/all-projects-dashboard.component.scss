@@ -1,0 +1,97 @@
+.container-fluid {
+  padding-left: 20px;
+}
+
+.my_task_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 15px 10px 15px;
+}
+
+.my_task_header .title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+.add-task-btn {
+  padding: 11px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.project-card {
+  border-radius: 13px;
+  margin-bottom: 16px;
+  background-color: var(--background-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.project-card:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+}
+
+.project-card .card-label {
+  font-size: 11px !important;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+.project-card .card-body {
+  padding: 17px !important;
+}
+
+.project-card .description {
+  font-size: 12px;
+}
+
+.project-card .additional-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.project-card .additional-info-2 {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-card .additional-info span {
+  color: var(--text-color) !important;
+  transition: 0.5s all ease-in-out;
+}
+
+.project-card .dropdown-menu.show {
+  position: absolute;
+  will-change: transform;
+  top: 0px;
+  left: -80px !important;
+  transform: translate3d(0px, 32px, 0px);
+  border: none;
+  padding: 10px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.empty-message span {
+  color: var(--text-color);
+  font-size: 12px;
+  margin-top: 20px;
+  font-weight: 700;
+}
+
+.project-card .dropdown-item {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-color);
+}

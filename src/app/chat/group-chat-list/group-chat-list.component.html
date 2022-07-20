@@ -1,0 +1,50 @@
+<div class="card card-custom new-task-card">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Group Project List</h3>
+    </div>
+    <div class="card-toolbar">
+      <div class="new-task-header text-center">
+        <span> <i class="fab fa-buffer"></i> </span>
+        <span>ARIA <span class="primary-color">PLANNER</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <mat-dialog-content>
+      <div class="container-fluid" *ngIf="(UserGroupProjects$ | async).length">
+        <div
+          class="project-tile"
+          *ngFor="let project of UserGroupProjects$ | async"
+        >
+          <div class="d-flex align-items-center mr-3">
+            <div class="symbol symbol-50 symbol-circle symbol-success mr-4">
+              <span class="symbol-label font-size-h5">
+                <i class="fas fa-layer-group text-white"></i>
+              </span>
+            </div>
+            <span class="project-name">{{ project.title }}</span>
+          </div>
+
+          <div>
+            <a
+              href="javascript:;"
+              (click)="createProject(project)"
+              class="btn btn-icon btn-circle btn-sm btn-light"
+            >
+              <i class="fas fa-plus" style="font-size: 10px"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <a
+      href="javascript:;"
+      class="btn btn-light font-weight-bold action-btn mr-4"
+      (click)="close()"
+      >Close</a
+    >
+  </div>
+</div>

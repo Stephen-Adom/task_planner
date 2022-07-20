@@ -1,0 +1,125 @@
+<div class="card card-custom new-task-card">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Create Project</h3>
+    </div>
+    <div class="card-toolbar">
+      <div class="new-task-header text-center">
+        <span> <i class="fab fa-buffer"></i> </span>
+        <span>ARIA <span class="primary-color">PLANNER</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <mat-dialog-content>
+      <form [formGroup]="Form" novalidate>
+        <div class="form-group">
+          <label for="">Task Title</label>
+          <input
+            [class.is-invalid]="
+              Form.get('title').touched && Form.get('title').invalid
+            "
+            formControlName="title"
+            type="text"
+            class="form-control"
+            placeholder="Enter title"
+          />
+          <div class="invalid-feedback">
+            <span *ngIf="Form.get('title').hasError('required')"
+              >Project Title is required</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Description</label>
+          <input
+            [class.is-invalid]="
+              Form.get('description').touched && Form.get('description').invalid
+            "
+            formControlName="description"
+            type="text"
+            class="form-control"
+            placeholder="Enter description"
+          />
+          <div class="invalid-feedback">
+            <span *ngIf="Form.get('description').hasError('required')"
+              >Project Description is required</span
+            >
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 23px">
+          <div class="col">
+            <div class="form-group">
+              <label for="">Start Date</label>
+              <input
+                (change)="validateStartDate($event)"
+                [class.is-invalid]="
+                  Form.get('startDate').touched && Form.get('startDate').invalid
+                "
+                formControlName="startDate"
+                class="form-control"
+                type="datetime-local"
+                value="2011-08-19T13:45:00"
+                id="example-datetime-local-input"
+              />
+              <div class="invalid-feedback">
+                <span *ngIf="Form.get('startDate').hasError('required')"
+                  >Start Date is required</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="">End Date</label>
+              <input
+                (change)="validateEndDate($event)"
+                [class.is-invalid]="
+                  Form.get('endDate').touched && Form.get('endDate').invalid
+                "
+                formControlName="endDate"
+                class="form-control"
+                type="datetime-local"
+                value="2011-08-19T13:45:00"
+                id="example-datetime-local-input"
+              />
+              <div class="invalid-feedback">
+                <span *ngIf="Form.get('endDate').hasError('required')"
+                  >End Date is required</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mt-3">
+          <label for="exampleFormControlFile1">Attachment</label>
+          <input
+            (change)="uploadAttachment($event)"
+            multiple
+            type="file"
+            class="form-control-file attachment"
+            id="exampleFormControlFile1"
+            accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          />
+        </div>
+      </form>
+    </mat-dialog-content>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <a
+      href="javascript:;"
+      class="btn btn-light font-weight-bold action-btn mr-4"
+      (click)="close()"
+      >Close</a
+    >
+    <a
+      href="javascript:;"
+      class="btn btn-success action-btn font-weight-bold"
+      (click)="newtask()"
+      >Create Task</a
+    >
+  </div>
+</div>

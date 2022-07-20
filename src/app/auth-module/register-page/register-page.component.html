@@ -1,0 +1,207 @@
+<div id="register_page">
+  <div class="container-fluid m-0 p-0">
+    <div class="row w-100 m-0 p-0">
+      <div class="col-lg-6 col-12 register-form-section">
+        <div class="d-flex align-items-end">
+          <span class="d-block"> <i class="fab fa-buffer"></i> </span>
+          <span>ARIA <span class="primary-color">PLANNER</span></span>
+        </div>
+
+        <h6 class="welcome-title">Create Account</h6>
+
+        <form [formGroup]="Form">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input
+                  [class.is-invalid]="
+                    Form.get('firstname').touched &&
+                    Form.get('firstname').invalid
+                  "
+                  formControlName="firstname"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter first name"
+                />
+                <div class="invalid-feedback">
+                  <span *ngIf="Form.get('firstname').hasError('required')"
+                    >Your Firstname is required</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input
+                  [class.is-invalid]="
+                    Form.get('lastname').touched && Form.get('lastname').invalid
+                  "
+                  formControlName="lastname"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter last name"
+                />
+                <div class="invalid-feedback">
+                  <span *ngIf="Form.get('lastname').hasError('required')"
+                    >Your Lastname is required</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input
+                  [class.is-invalid]="
+                    Form.get('email').touched && Form.get('email').invalid
+                  "
+                  formControlName="email"
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email"
+                />
+                <div class="invalid-feedback">
+                  <span *ngIf="Form.get('email').hasError('required')"
+                    >Your Email is required</span
+                  >
+                  <span *ngIf="Form.get('email').hasError('email')"
+                    >Your Email must be valid</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <ngx-intl-tel-input
+                  [cssClass]="'form-control register-input'"
+                  [preferredCountries]="[
+                    CountryISO.Ghana,
+                    CountryISO.UnitedKingdom
+                  ]"
+                  [enableAutoCountrySelect]="false"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [searchCountryField]="[
+                    SearchCountryField.Iso2,
+                    SearchCountryField.Name
+                  ]"
+                  [selectFirstCountry]="false"
+                  [selectedCountryISO]="CountryISO.Ghana"
+                  [phoneValidation]="true"
+                  name="phone"
+                  formControlName="phonenumber"
+                ></ngx-intl-tel-input>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    Form.get('phonenumber').invalid &&
+                    Form.get('phonenumber').touched
+                  "
+                >
+                  <span *ngIf="Form.get('phonenumber').hasError('required')"
+                    >Your phonnumber is required</span
+                  >
+                  <span
+                    *ngIf="
+                      Form.get('phonenumber').hasError('validatePhoneNumber')
+                    "
+                    >Your phonnumber must be valid</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group">
+                <input
+                  [class.is-invalid]="
+                    Form.get('password').touched && Form.get('password').invalid
+                  "
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Enter password"
+                />
+                <div class="invalid-feedback">
+                  <span *ngIf="Form.get('password').hasError('required')"
+                    >Your Password is required</span
+                  >
+                  <span *ngIf="Form.get('password').hasError('minlength')"
+                    >Your Password must be more than 6 characters</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group">
+                <input
+                  [class.is-invalid]="
+                    Form.get('confirmPassword').touched &&
+                    Form.get('confirmPassword').invalid
+                  "
+                  formControlName="confirmPassword"
+                  type="password"
+                  class="form-control"
+                  placeholder="Confirm password"
+                />
+                <div class="invalid-feedback">
+                  <span *ngIf="Form.get('confirmPassword').hasError('required')"
+                    >Confirm your password</span
+                  >
+                  <span
+                    *ngIf="
+                      Form.get('confirmPassword').hasError('ConfirmPassword')
+                    "
+                    >Your password does not match</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="">
+            <div>
+              <button
+                type="button"
+                class="btn btn-success btn-block"
+                (click)="submit()"
+              >
+                REGISTER
+              </button>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column align-items-center mt-3">
+            <a
+              href="javascript:;"
+              (click)="googleSignup()"
+              class="d-block text-center"
+            >
+              <img
+                class="mr-3"
+                src="assets/images/login/google-logo.png"
+                width="10%"
+                alt=""
+              />
+              <span style="font-size: 13px">GOOGLE SIGNUP</span>
+            </a>
+          </div>
+
+          <div class="mt-4 text-center">
+            <a
+              href="javascript:;"
+              [routerLink]="['/auth/login']"
+              class="d-block"
+              >Already A Member? Sign In!</a
+            >
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-6 col-12 register-banner-section">
+        <img src="assets/images/register/Team-Meeting.png" width="80%" alt="" />
+      </div>
+    </div>
+  </div>
+</div>

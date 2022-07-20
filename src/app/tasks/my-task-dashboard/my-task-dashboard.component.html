@@ -1,0 +1,500 @@
+<div class="container-fluid pr-0">
+  <div class="row w-100 p-0 m-0">
+    <div class="col-12">
+      <div class="my_task_header">
+        <h6 class="title">MY TASK(S)</h6>
+
+        <div>
+          <button
+            (click)="addNewTask()"
+            type="button"
+            class="btn btn-success add-task-btn"
+          >
+            <i class="fas fa-plus mr-1" style="font-size: 11px"></i>
+            ADD TASK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <app-no-personal-task
+      style="width: 100%"
+      *ngIf="
+        (PendingTasksNum$ | async) === 0 &&
+        (ProgressTasksNum$ | async) === 0 &&
+        (CompletedTasksNum$ | async) == 0 &&
+        (CanceledTasksNum$ | async) === 0
+      "
+    ></app-no-personal-task>
+    <div
+      class="col-12"
+      style="margin-top: 20px"
+      *ngIf="
+        (PendingTasksNum$ | async) > 0 ||
+        (ProgressTasksNum$ | async) > 0 ||
+        (CompletedTasksNum$ | async) > 0 ||
+        (CanceledTasksNum$ | async) > 0
+      "
+    >
+      <ul class="nav nav-tabs nav-tabs-line mb-2">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">
+            <span class="nav-icon"><i class="fab fa-first-order"></i></span>
+            <span class="nav-text"
+              >Active Task({{ ActiveTasksNum$ | async }})</span
+            >
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">
+            <span class="nav-icon"><i class="fas fa-check-double"></i></span>
+            <span class="nav-text"
+              >Completed Task({{ CompletedTasksNum$ | async }})</span
+            >
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3">
+            <span class="nav-icon"><i class="fas fa-ban"></i></span>
+            <span class="nav-text"
+              >Canceled Task({{ CanceledTasksNum$ | async }})</span
+            >
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="tab"
+            href="#kt_tab_pane_4"
+            tabindex="-1"
+            aria-disabled="true"
+          >
+            <span class="nav-icon"><i class="fas fa-chart-bar"></i></span>
+            <span class="nav-text">My Stats</span>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content mt-5" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="kt_tab_pane_1"
+          role="tabpanel"
+          aria-labelledby="kt_tab_pane_2"
+        >
+          <div class="task_list_container">
+            <ng-container *ngIf="ProgressTasksNum$ | async as ProgressTasksNum">
+              <span
+                class="text-muted font-weight-bold d-block title mb-4"
+                *ngIf="ProgressTasksNum > 0"
+                >TASKS IN PROGRESS</span
+              >
+            </ng-container>
+
+            <ng-container *ngIf="ProgressTasks$ | async as ProgressTasks">
+              <ng-container *ngIf="ProgressTasks.length">
+                <div
+                  class="card card-custom task-card"
+                  *ngFor="let task of ProgressTasks; let i = index"
+                >
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-2 align-items-start">
+                        <h6>{{ task.title }}</h6>
+
+                        <span class="text-muted d-block mt-2">
+                          <i class="fas fa-paperclip primary-color mr-1"></i>
+                          {{ task.attachments.length }} files
+                        </span>
+                      </div>
+                      <div class="col-3 description">
+                        {{ task.description }}
+                      </div>
+                      <div class="col-3">
+                        <span
+                          class="text-muted d-block font-weight-bold"
+                          style="font-size: 11px"
+                        >
+                          <i class="fas fa-calendar-alt primary-color mr-1"></i>
+                          START DATE: {{ formateStartDate(task.startDate) }}
+                        </span>
+                        <span
+                          class="text-muted d-block font-weight-bold mt-2"
+                          style="font-size: 11px"
+                        >
+                          <i class="fas fa-calendar-alt text-danger mr-1"></i>
+                          END DATE: {{ formateStartDate(task.endDate) }}
+                        </span>
+                      </div>
+
+                      <div class="col-2">
+                        <a
+                          href="javascript:;"
+                          class="d-flex align-items-center"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <span
+                            class="
+                              symbol symbol-circle symbol-success symbol-30
+                              ml-2
+                            "
+                          >
+                            <img
+                              *ngIf="AuthUser.image"
+                              alt="Pic"
+                              [src]="AuthUser.image"
+                            />
+                            <img
+                              *ngIf="!AuthUser.image"
+                              alt="Pic"
+                              src="assets/images/media/default/default.jpg"
+                            />
+                          </span>
+                          <span class="text-muted font-weight-bold ml-2"
+                            >{{ AuthUser.firstname }}
+                            {{ AuthUser.lastname }}</span
+                          >
+                        </a>
+                      </div>
+
+                      <div class="col-1">
+                        <span
+                          class="label label-outline-warning label-inline mr-2"
+                        >
+                          <i class="fab fa-first-order text-warning mr-2"></i>
+                          In Progress
+                        </span>
+                      </div>
+
+                      <div class="col-1">
+                        <div class="dropdown dropdown-inline mr-4">
+                          <button
+                            type="button"
+                            class="btn btn-custom btn-icon btn-sm"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i class="fas fa-ellipsis-h"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <span
+                              class="dropdown-item text-success"
+                              (click)="completeTask(task)"
+                              >Complete Task</span
+                            >
+                            <span
+                              class="dropdown-item text-danger"
+                              (click)="cancelProgressTask(task)"
+                              >Cancel Task</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+
+          <div class="task_list_container mt-4">
+            <ng-container *ngIf="PendingTasksNum$ | async as PendingTasksNum">
+              <span
+                class="text-muted font-weight-bold d-block title mb-4"
+                *ngIf="PendingTasksNum > 0"
+                >UPCOMING TASK(S)</span
+              >
+            </ng-container>
+
+            <ng-container *ngIf="PendingTasks$ | async as PendingTasks">
+              <ng-container *ngFor="let task of PendingTasks; let i = index">
+                <div class="card card-custom task-card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-2 align-items-start">
+                        <h6>{{ task.title }}</h6>
+
+                        <span class="text-muted d-block mt-2">
+                          <i class="fas fa-paperclip primary-color mr-1"></i>
+                          {{ task.attachments.length }} files
+                        </span>
+                      </div>
+                      <div class="col-3">
+                        {{ task.description }}
+                      </div>
+                      <div class="col-3">
+                        <span
+                          class="text-muted d-block font-weight-bold"
+                          style="font-size: 11px"
+                        >
+                          <i class="fas fa-calendar-alt primary-color mr-1"></i>
+                          START DATE: {{ formateStartDate(task.startDate) }}
+                        </span>
+                        <span
+                          class="text-muted d-block font-weight-bold mt-2"
+                          style="font-size: 11px"
+                        >
+                          <i class="fas fa-calendar-alt text-danger mr-1"></i>
+                          END DATE: {{ formateStartDate(task.endDate) }}
+                        </span>
+                      </div>
+
+                      <div class="col-2">
+                        <a
+                          href="javascript:;"
+                          class="d-flex align-items-center"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <span
+                            class="
+                              symbol symbol-circle symbol-success symbol-30
+                              ml-2
+                            "
+                          >
+                            <img
+                              *ngIf="AuthUser.image"
+                              alt="Pic"
+                              [src]="AuthUser.image"
+                            />
+                            <img
+                              *ngIf="!AuthUser.image"
+                              alt="Pic"
+                              src="assets/images/media/default/default.jpg"
+                            />
+                          </span>
+                          <span class="text-muted font-weight-bold ml-2"
+                            >{{ AuthUser.firstname }}
+                            {{ AuthUser.lastname }}</span
+                          >
+                        </a>
+                      </div>
+
+                      <div class="col-1">
+                        <span
+                          class="label label-outline-primary label-inline mr-2"
+                        >
+                          <i class="fab fa-first-order text-primary mr-2"></i>
+                          Pending
+                        </span>
+                      </div>
+
+                      <div class="col-1">
+                        <div class="dropdown dropdown-inline mr-4">
+                          <button
+                            type="button"
+                            class="btn btn-custom btn-icon btn-sm"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i class="fas fa-ellipsis-h"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <span
+                              class="dropdown-item"
+                              (click)="startTask(task)"
+                              >Start Task</span
+                            >
+                            <span
+                              class="dropdown-item text-danger"
+                              (click)="cancelPendingTasks(task)"
+                              >Cancel Task</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="kt_tab_pane_2"
+          role="tabpanel"
+          aria-labelledby="kt_tab_pane_2"
+        >
+          <ng-container *ngIf="CompletedTasks$ | async as CompletedTasks">
+            <ng-container *ngFor="let task of CompletedTasks; let i = index">
+              <div class="card card-custom task-card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-2 align-items-start">
+                      <h6>{{ task.title }}</h6>
+
+                      <span class="text-muted d-block mt-2">
+                        <i class="fas fa-paperclip primary-color mr-1"></i>
+                        {{ task.attachments.length }} files
+                      </span>
+                    </div>
+                    <div class="col-3">
+                      {{ task.description }}
+                    </div>
+                    <div class="col-3">
+                      <span
+                        class="text-muted d-block font-weight-bold"
+                        style="font-size: 11px"
+                      >
+                        <i class="fas fa-calendar-alt primary-color mr-1"></i>
+                        START DATE: {{ formateStartDate(task.startDate) }}
+                      </span>
+                      <span
+                        class="text-muted d-block font-weight-bold mt-2"
+                        style="font-size: 11px"
+                      >
+                        <i class="fas fa-calendar-alt text-success mr-1"></i>
+                        COMPLETED DATE:
+                        {{ formateStartDate(task.completedDate) }}
+                      </span>
+                    </div>
+
+                    <div class="col-2">
+                      <a
+                        href="javascript:;"
+                        class="d-flex align-items-center"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <span
+                          class="
+                            symbol symbol-circle symbol-success symbol-30
+                            ml-2
+                          "
+                        >
+                          <img
+                            *ngIf="AuthUser.image"
+                            alt="Pic"
+                            [src]="AuthUser.image"
+                          />
+                          <img
+                            *ngIf="!AuthUser.image"
+                            alt="Pic"
+                            src="assets/images/media/default/default.jpg"
+                          />
+                        </span>
+                        <span class="text-muted font-weight-bold ml-2"
+                          >{{ AuthUser.firstname }}
+                          {{ AuthUser.lastname }}</span
+                        >
+                      </a>
+                    </div>
+
+                    <div class="col-1">
+                      <span
+                        class="label label-outline-success label-inline mr-2"
+                      >
+                        <i class="fab fa-first-order text-success mr-2"></i>
+                        Completed
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="kt_tab_pane_3"
+          role="tabpanel"
+          aria-labelledby="kt_tab_pane_3"
+        >
+          <ng-container *ngIf="CanceledTasks$ | async as CanceledTasks">
+            <ng-container *ngFor="let task of CanceledTasks; let i = index">
+              <div class="card card-custom task-card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-2 align-items-start">
+                      <h6>{{ task.title }}</h6>
+
+                      <span class="text-muted d-block mt-2">
+                        <i class="fas fa-paperclip primary-color mr-1"></i>
+                        {{ task.attachments.length }} files
+                      </span>
+                    </div>
+                    <div class="col-3">
+                      {{ task.description }}
+                    </div>
+                    <div class="col-3">
+                      <span
+                        class="text-muted d-block font-weight-bold"
+                        style="font-size: 11px"
+                      >
+                        <i class="fas fa-calendar-alt primary-color mr-1"></i>
+                        START DATE: {{ formateStartDate(task.startDate) }}
+                      </span>
+                      <span
+                        class="text-muted d-block font-weight-bold mt-2"
+                        style="font-size: 11px"
+                      >
+                        <i class="fas fa-calendar-alt text-danger mr-1"></i>
+                        END DATE:
+                        {{ formateStartDate(task.endDate) }}
+                      </span>
+                    </div>
+
+                    <div class="col-2">
+                      <a
+                        href="javascript:;"
+                        class="d-flex align-items-center"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <span
+                          class="
+                            symbol symbol-circle symbol-success symbol-30
+                            ml-2
+                          "
+                        >
+                          <img
+                            *ngIf="AuthUser.image"
+                            alt="Pic"
+                            [src]="AuthUser.image"
+                          />
+                          <img
+                            *ngIf="!AuthUser.image"
+                            alt="Pic"
+                            src="assets/images/media/default/default.jpg"
+                          />
+                        </span>
+                        <span class="text-muted font-weight-bold ml-2"
+                          >{{ AuthUser.firstname }}
+                          {{ AuthUser.lastname }}</span
+                        >
+                      </a>
+                    </div>
+
+                    <div class="col-1">
+                      <span
+                        class="label label-outline-danger label-inline mr-2"
+                      >
+                        <i class="fas fa-ban text-danger mr-2"></i>
+                        Canceled
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="kt_tab_pane_4"
+          role="tabpanel"
+          aria-labelledby="kt_tab_pane_4"
+        >
+          Tab content 5
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

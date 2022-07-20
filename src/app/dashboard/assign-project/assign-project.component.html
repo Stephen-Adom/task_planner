@@ -1,0 +1,119 @@
+<div class="card card-custom">
+  <div class="card-header">
+    <div class="card-title">
+      <span class="card-icon">
+        <i class="fas fa-random text-primary"></i>
+      </span>
+      <h3 class="card-label">ASSIGN PROJECT</h3>
+    </div>
+    <div class="card-toolbar">
+      <a href="#" class="btn btn-sm btn-icon">
+        <i class="fas fa-times" style="font-size: 12px"></i>
+      </a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <h6 class="project-list-title">
+          PENDING PROJECT AVAILABLE ({{ PendingProjectsNum$ | async }})
+        </h6>
+
+        <div
+          style="margin-top: 25px; max-height: 250px; overflow-y: auto"
+          *ngIf="PendingProjects$ | async as PendingProjects"
+        >
+          <div
+            (click)="selectProject(project)"
+            class="card card-custom project-card"
+            [ngClass]="{ active: AssignedProject?._id === project._id }"
+            *ngFor="let project of PendingProjects; let i = index"
+          >
+            <div class="card-body d-flex align-items-center">
+              <div class="symbol symbol-success symbol-30 mr-4">
+                <span class="symbol-label font-size-h5">{{
+                  getProjectCharacter(project)
+                }}</span>
+              </div>
+
+              <span class="d-block" style="font-size: 12px; font-weight: 600">{{
+                project.title
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 text-center">
+        <div class="symbol symbol-70 symbol-circle">
+          <img alt="Pic" *ngIf="member.image" [src]="member.image" />
+          <img
+            alt="Pic"
+            *ngIf="!member.image"
+            src="assets/images/media/default/default.jpg"
+          />
+        </div>
+        <span class="d-block member-name"
+          >{{ member.firstname }} {{ member.lastname }}</span
+        >
+
+        <span class="d-block assign-icon" *ngIf="AssignedProject">
+          <i class="fas fa-long-arrow-alt-down"></i>
+        </span>
+
+        <div class="card card-custom project-card" *ngIf="AssignedProject">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3 class="card-label">{{ AssignedProject.title }}</h3>
+              <h3 class="card-label">
+                CURRENT MEMBERS: {{ AssignedProject.members.length }}
+              </h3>
+            </div>
+
+            <hr />
+
+            <div
+              class="symbol-list d-flex flex-wrap"
+              *ngIf="AssignedProject.members.length"
+            >
+              <div
+                class="symbol symbol-40 symbol-circle mr-3"
+                *ngFor="let member of AssignedProject.members; let i = index"
+              >
+                <img alt="Pic" [src]="member.image" *ngIf="member.image" />
+                <img
+                  alt="Pic"
+                  src="assets/images/media/default/default.jpg"
+                  *ngIf="!member.image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <span
+      *ngIf="AssignedProject"
+      class="d-block font-italic font-weight-bold text-muted text-center"
+      >{{ member.firstname }} {{ member.lastname }} WILL BE ASSIGN TO
+      {{ AssignedProject.title }}!</span
+    >
+    <div class="text-right action-btn-container" style="margin-top: 20px">
+      <button
+        (click)="close()"
+        type="button"
+        class="btn btn-light action-btn mr-4"
+      >
+        Cancel
+      </button>
+      <button
+        *ngIf="AssignedProject"
+        (click)="submit()"
+        type="button"
+        class="btn btn-success action-btn"
+      >
+        Assign Project
+      </button>
+    </div>
+  </div>
+</div>

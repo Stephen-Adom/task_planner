@@ -1,0 +1,212 @@
+.container-fluid {
+  padding-left: 20px;
+}
+
+.right-sidebar .user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color);
+  text-transform: uppercase;
+  transition: 0.5s all ease-in-out;
+}
+
+.right-sidebar .auth-symbol {
+  padding: 3px;
+  border: 2px solid #1bc5bd;
+}
+
+.right-sidebar .notification-icon {
+  position: relative;
+}
+
+.right-sidebar .user-profile:hover {
+  cursor: pointer;
+}
+
+.right-sidebar {
+  height: 100vh;
+  background-color: var(--background-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.members-list {
+  margin-top: 25px;
+}
+
+.members-list .title {
+  color: #b0b0b0 !important;
+  font-size: 12px;
+}
+
+.sidebar-hr {
+  background-color: var(--hr-background);
+  transition: 0.5s all ease-in-out;
+}
+
+.members-list .list-group .list-group-item {
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.members-list .list-group .list-group-item:hover {
+  cursor: pointer;
+}
+
+.members-list .member-symbol {
+  padding: 2px;
+  border: 1.5px solid #1bc5bd;
+  transition: 0.6s all ease-in-out;
+}
+
+.members-list .list-group .list-group-item:hover .member-symbol {
+  padding: 2px;
+  border: 3px solid #1bc5bd;
+}
+
+.right-sidebar .btn-block {
+  padding: 16px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.main-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 0;
+}
+
+.main-content-header .init-message {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a4a4a4 !important;
+}
+
+.main-content-header .display-4 {
+  font-weight: 500 !important;
+  margin-right: 15px;
+  color: var(--text-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.new-task-btn {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 8px;
+}
+
+.main-content-header .form-control {
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid var(--input-border);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  width: 245px;
+  transition: 0.5s all ease-in-out;
+}
+
+.pending-card-header {
+  border-radius: 10px;
+  background-color: var(--background-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.pending-card-header .title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pending-card-header .sub-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.pending-card-header .card-body {
+  padding: 22px;
+}
+
+.task-list-content {
+  margin-top: 29px;
+}
+
+.task-list-content .col-lg-4::-webkit-scrollbar {
+  display: none;
+}
+
+.project-card {
+  border-radius: 13px;
+  margin-bottom: 16px;
+  transition: 0.5s all ease-in-out;
+  background-color: var(--background-color);
+  // transition: 0.5s transform ease-in-out;
+}
+
+.project-card:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+}
+
+.project-card .card-label {
+  font-size: 11px !important;
+  color: var(--text-color);
+  text-transform: uppercase;
+  transition: 0.5s all ease-in-out;
+}
+
+.project-card .card-body {
+  padding: 17px !important;
+}
+
+.project-card .description {
+  font-size: 12px;
+}
+
+.project-card .additional-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.project-card .additional-info-2 {
+  margin-top: 10px;
+}
+
+.project-card .additional-info span {
+  color: var(--text-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.project-card .dropdown-menu.show {
+  position: absolute;
+  will-change: transform;
+  top: 0px;
+  left: -80px !important;
+  transform: translate3d(0px, 32px, 0px);
+  border: none;
+  padding: 10px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.project-card .dropdown-item {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-color);
+}

@@ -1,0 +1,58 @@
+.module-card {
+  background-color: var(--background-color) !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px !important;
+  border-radius: 0px;
+  transition: all 0.6s ease !important;
+}
+
+.close-btn,
+.action-btn {
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+.card-label {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: var(--text-color) !important;
+}
+
+.attachment-card {
+  box-shadow: none !important;
+  border: 1px solid var(--card-border-color) !important;
+  background-color: var(--background-color) !important;
+  transition: 0.5s transform ease-in-out;
+  height: 100%;
+}
+
+.attachment-card:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+}
+
+.attachment-card img {
+  width: 35%;
+}
+
+.new-attachment-btn {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 8px;
+}
+
+.attachment-card .label:hover {
+  cursor: pointer;
+}
+
+.attachment-name {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-transform: uppercase;
+}

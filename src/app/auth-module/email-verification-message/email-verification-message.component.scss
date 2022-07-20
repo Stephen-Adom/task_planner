@@ -1,0 +1,27 @@
+.email-verification-header i {
+  color: #1bc5bd;
+  font-size: 32px;
+  margin-right: 2px;
+  transform: rotate(30deg);
+}
+
+.email-verification-header span:nth-child(2) {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#email-verification .card-header {
+  border-bottom: 1px solid #eaeaea !important;
+}
+
+.action-btns {
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#email-verification .card-header .card-title span {
+  font-size: 14px;
+  font-weight: 800;
+}

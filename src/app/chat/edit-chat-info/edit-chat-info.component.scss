@@ -1,0 +1,57 @@
+.card-label {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--text-color);
+}
+
+.form-control {
+  height: 70px;
+  border-left: 0 !important;
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  background: var(--background-color);
+  border: 1px solid var(--input-border);
+  color: var(--text-color);
+}
+
+.form-control::placeholder {
+  font-weight: 600;
+}
+
+.btn {
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+}
+
+.card-custom {
+  background: var(--background-color);
+}
+
+.groupinputfile + label {
+  cursor: pointer; /* "hand" cursor */
+}
+
+.groupinputfile + label {
+  font-weight: 600;
+  color: white;
+  background-color: #1bc5bd;
+  display: inline-block;
+  transition: 0.5s all ease-in-out;
+  padding: 10px 22px;
+  border-radius: 10px;
+}
+
+.groupinputfile:focus + label,
+.groupinputfile + label:hover {
+  background-color: #0fa099;
+}
+
+.groupinputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}

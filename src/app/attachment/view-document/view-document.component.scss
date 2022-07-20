@@ -1,0 +1,21 @@
+.module-card {
+  background-color: var(--background-color) !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px !important;
+  border-radius: 0px;
+  transition: all 0.6s ease !important;
+  height: 100vh;
+}
+
+.close-btn,
+.action-btn {
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+.card-label {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: var(--text-color) !important;
+}

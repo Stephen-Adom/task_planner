@@ -1,0 +1,86 @@
+#register_page{
+    width: 100%;
+    height: 100vh;
+    max-width: 100vw;
+}
+
+.register-form-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 90px;
+    background-color: #fff;
+}
+
+.welcome-title{
+    font-size: 46px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+#register_page i{
+    color: #1BC5BD;
+    font-size: 46px;
+    margin-right: 2px;
+    transform: rotate(30deg);
+}
+
+
+form{
+    width: 70%;
+}
+
+form .form-control{
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #d9d2d2;
+}
+
+form .form-control::placeholder{
+    font-weight: 600;
+}
+
+form a{
+    color: #707070;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+form .btn-block{
+    padding: 17px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.register-banner-section{
+    height: 100vh;
+    background: #eafaf9;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.primary-color{
+    color: #1BC5BD !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .register-banner-section{
+        display: none;
+    }
+}
+
+form .btn{
+    padding: 17px 48px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.register-form-section span:nth-child(2){
+    font-size: 16px;
+    font-weight: 700;
+}

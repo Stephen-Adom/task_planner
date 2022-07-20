@@ -1,0 +1,168 @@
+<app-profile-navbar></app-profile-navbar>
+
+<div class="profile-dashboard">
+  <div class="row">
+    <div class="col-lg-4 col-12" *ngIf="AuthUser">
+      <div class="card card-custom profile-card">
+        <img
+          *ngIf="!AuthUser.image"
+          class="card-image image-circle"
+          src="assets/images/media/default/default.jpg"
+          alt=""
+        />
+        <img
+          *ngIf="AuthUser.image"
+          class="card-image image-circle"
+          [src]="AuthUser.image"
+          alt=""
+        />
+        <div class="card-body pt-0">
+          <div class="mb-2">
+            <h6 class="name">
+              {{ AuthUser.firstname }} {{ AuthUser.lastname }}
+            </h6>
+            <span
+              class="font-weight-bold d-block text-center status-label"
+              *ngIf="AuthUser.active"
+              >ACTIVE
+              <i class="fas fa-check-circle primary-color"></i>
+            </span>
+            <span
+              class="font-weight-bold d-block text-center status-label"
+              *ngIf="!AuthUser.active"
+              >INACTIVE
+              <i class="fas fa-times text-danger"></i>
+            </span>
+          </div>
+          <div>
+            <span class="d-block text-muted font-weight-bold"
+              >Member Type:
+              <span class="primary-color">{{ AuthUser.userType }}</span></span
+            >
+            <span class="d-block text-muted font-weight-bold"
+              >Last Login:
+              <span class="primary-color">{{
+                formateDate(AuthUser.lastLoginAt)
+              }}</span></span
+            >
+          </div>
+
+          <hr class="profile-hr" />
+
+          <div class="other-profile-details">
+            <div class="profile-detail-tile">
+              <span class="d-block">EMAIL</span>
+              <span class="d-block">{{ AuthUser.email }}</span>
+            </div>
+
+            <div class="profile-detail-tile">
+              <span class="d-block">CONTACT</span>
+              <span class="d-block">{{ AuthUser.phonenumber }}</span>
+            </div>
+
+            <div
+              class="profile-detail-tile"
+              *ngIf="Settings$ | async as Settings"
+            >
+              <span
+                class="d-block primary-color"
+                *ngIf="Settings.notification_type === 'email'"
+                >EMAIL ALERT NOTIFICATION
+                <i class="fas fa-check-circle primary-color ml-3"></i>
+              </span>
+              <span
+                class="d-block primary-color"
+                *ngIf="Settings.notification_type === 'text'"
+                >TEXT MESSAGE ALERT NOTIFICATION
+                <i class="fas fa-check-circle primary-color ml-3"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-3 text-center">
+            <button
+              (click)="editprofile(AuthUser)"
+              type="button"
+              class="btn btn-primary btn-shadow update-detail-btn"
+            >
+              UPDATE DETAILS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-custom profile-card">
+            <div class="card-header card-header-tabs-line">
+              <div class="card-title">
+                <h3 class="card-label">MY PROJECT LISTS</h3>
+              </div>
+              <div class="card-toolbar">
+                <ul class="nav nav-tabs nav-bold nav-tabs-line">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      data-toggle="tab"
+                      href="#kt_tab_pane_1_2"
+                      >PERSONAL TASK</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#kt_tab_pane_2_2"
+                      >GROUP TASK</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#kt_tab_pane_4_2"
+                    >
+                      <span class="nav-icon"><i class="fas fa-cogs"></i></span>
+                      <span class="nav-text">SETTINGS</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body" style="height: 70vh">
+              <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="kt_tab_pane_1_2"
+                  role="tabpanel"
+                  aria-labelledby="kt_tab_pane_1_2"
+                >
+                  <app-personal-task-list></app-personal-task-list>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="kt_tab_pane_2_2"
+                  role="tabpanel"
+                  aria-labelledby="kt_tab_pane_2"
+                >
+                  <app-group-task-list></app-group-task-list>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="kt_tab_pane_4_2"
+                  role="tabpanel"
+                  aria-labelledby="kt_tab_pane_4_2"
+                >
+                  <app-settings-overview></app-settings-overview>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

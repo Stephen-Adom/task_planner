@@ -1,0 +1,148 @@
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step>
+    <div id="complete-registration-profile">
+      <div class="container-fluid">
+        <div class="row w-100 justify-content-center">
+          <div class="col-lg-6 col-sm-10 col-12">
+            <div class="registration-header text-center">
+              <span> <i class="fab fa-buffer"></i> </span>
+              <span>ARIA <span class="primary-color">PLANNER</span></span>
+            </div>
+
+            <div class="symbol symbol-circle symbol-150">
+              <img alt="Pic" [src]="defaultImg" />
+            </div>
+
+            <span class="d-block text-center name-title">ALBERTA FLORES</span>
+            <span class="text-muted font-weight-bold d-block text-center">
+              Update your profile image to continue</span
+            >
+
+            <div class="mt-4 text-center">
+              <div class="upload-box">
+                <input
+                  (change)="updateprofile($event)"
+                  type="file"
+                  name="file"
+                  id="file"
+                  class="inputfile"
+                />
+                <label for="file">
+                  <i
+                    class="fas fa-camera mr-2"
+                    style="color: white !important"
+                  ></i>
+                  Upload Image
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-btns-sections d-flex justify-content-end">
+          <button
+            (click)="nextStep()"
+            type="button"
+            class="btn btn-primary continue-btn"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step>
+    <div id="choose-theme-page">
+      <div class="container-fluid">
+        <div class="row w-100 justify-content-center">
+          <div class="col-lg-6 col-sm-10 col-12">
+            <div class="registration-header text-center">
+              <span> <i class="fab fa-buffer"></i> </span>
+              <span>ARIA <span class="primary-color">PLANNER</span></span>
+            </div>
+
+            <h6 class="text-center">
+              CHOOSE YOUR <span class="primary-color">DEFAULT</span> THEME
+            </h6>
+
+            <div class="theme-list-container">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label class="option option-plain">
+                    <span class="option-control">
+                      <span class="radio">
+                        <input
+                          type="radio"
+                          name="m_option_1"
+                          value="1"
+                          checked="checked"
+                        />
+                        <span></span>
+                      </span>
+                    </span>
+                    <span class="option-label">
+                      <div class="card card-custom theme-card active">
+                        <img
+                          src="assets/images/register/light-theme.png"
+                          width="100%"
+                          alt=""
+                        />
+                      </div>
+                      <span class="option-head">
+                        <span class="option-title"> LIGHT THEME </span>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-lg-6">
+                  <label class="option option option-plain">
+                    <span class="option-control">
+                      <span class="radio">
+                        <input
+                          type="radio"
+                          name="m_option_1"
+                          value="1"
+                          checked="checked"
+                        />
+                        <span></span>
+                      </span>
+                    </span>
+                    <span class="option-label">
+                      <div class="card card-custom theme-card">
+                        <img
+                          src="assets/images/register/dark-theme.png"
+                          width="100%"
+                          alt=""
+                        />
+                      </div>
+                      <span class="option-head">
+                        <span class="option-title"> DARK THEME </span>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-btns-sections">
+          <button
+            type="button"
+            class="btn btn-light continue-btn mr-3"
+            (click)="previousStep()"
+          >
+            BACK
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary continue-btn"
+            [routerLink]="['/dashboard']"
+          >
+            GO TO DASHBOARD
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

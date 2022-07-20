@@ -1,0 +1,50 @@
+.primary-color {
+  color: #1bc5bd !important;
+}
+
+.email-header i {
+  color: #1bc5bd;
+  font-size: 32px;
+  margin-right: 2px;
+  transform: rotate(30deg);
+}
+
+.email-header span:nth-child(2) {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.email-card {
+  border-radius: 0;
+  background-color: var(--background-color);
+}
+
+.email-card .card-label {
+  color: var(--text-color) !important;
+}
+
+.email-card .card-header {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.email-card .card-footer {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+.form-control {
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid #bebebe;
+}
+
+label {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--text-color);
+}
+
+.action-btn {
+  padding: 13px 20px;
+  border-radius: 10px;
+}

@@ -1,0 +1,96 @@
+<div class="card card-custom members-list">
+  <div class="card-body">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="form-group mb-4">
+        <div class="input-icon">
+          <input type="text" class="form-control" placeholder="Search..." />
+          <span
+            ><i class="fas fa-search primary-color" style="font-size: 13px"></i
+          ></span>
+        </div>
+      </div>
+
+      <div class="symbol-group symbol-hover" *ngIf="selectedMembers.length">
+        <ng-container
+          *ngFor="let member of selectedMembers | slice: 0:3; let i = index"
+        >
+          <div class="symbol symbol-circle symbol-40" *ngIf="member.image">
+            <img alt="Pic" [src]="member.image" />
+          </div>
+          <div class="symbol symbol-circle symbol-40" *ngIf="!member.image">
+            <img
+              *ngIf="!member.image"
+              alt="Pic"
+              src="assets/images/media/default/default.jpg"
+            />
+          </div>
+
+          <ng-container *ngIf="selectedMembers.length > 3">
+            <div class="symbol symbol-circle symbol-light-success">
+              <span class="symbol-label font-weight-bold"
+                >{{ selectedMembers.length - 3 }}+</span
+              >
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div
+      mat-dialog-content
+      style="padding-top: 18px; padding-bottom: 18px"
+      *ngIf="AllUsers$ | async as AllUsers"
+    >
+      <div
+        class="card card-custom member-card"
+        *ngFor="let user of AllUsers; let i = index"
+      >
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="symbol symbol-40 symbol-circle mr-3" *ngIf="user.image">
+              <img alt="Pic" [src]="user.image" />
+            </div>
+            <div
+              class="symbol symbol-40 symbol-circle mr-3"
+              *ngIf="!user.image"
+            >
+              <img alt="Pic" src="assets/images/media/default/default.jpg" />
+            </div>
+            <span class="d-block mr-3"
+              >{{ user.firstname }} {{ user.lastname }}</span
+            >
+          </div>
+
+          <span class="switch switch-sm">
+            <label>
+              <input
+                type="checkbox"
+                (change)="addMember(user)"
+                [checked]="checkIfExist(user)"
+                name="select"
+              />
+              <span></span>
+            </label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer d-flex justify-content-center">
+    <a
+      href="javascript:;"
+      class="btn btn-light font-weight-bold action-btn mr-4"
+      (click)="close()"
+      >Close</a
+    >
+
+    <a
+      *ngIf="selectedMembers.length"
+      href="javascript:;"
+      class="btn btn-success font-weight-bold action-btn"
+      (click)="submit()"
+      >Add Members</a
+    >
+  </div>
+</div>

@@ -1,0 +1,245 @@
+#chat-session {
+  width: 100%;
+  height: 100vh;
+  padding-bottom: 20px;
+}
+
+.members-info-container {
+  height: 100%;
+}
+
+.members-info-container .info-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.members-info-container .info-header span {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.members-info-container .info-header button {
+  margin-right: 16px;
+  border-radius: 12px;
+}
+
+.auth-profile {
+  position: relative;
+  text-align: center;
+  padding: 25px 0;
+}
+
+.auth-profile .auth-name {
+  font-size: 17px;
+  font-weight: 800;
+  margin-top: 9px;
+}
+
+.auth-profile .status-label {
+  padding: 12px 26px !important;
+  margin-top: 5px;
+  font-weight: 700;
+}
+
+.auth-profile .auth-setting-icon {
+  right: 18px;
+}
+
+.auth-profile .auth-setting-icon:hover {
+  cursor: pointer;
+}
+
+.participant-list {
+  margin-top: 20px;
+  padding: 10px 0 10px 0;
+}
+
+.participant-list .list-title {
+  font-weight: 700;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.participant-list .list-tile {
+  display: flex;
+  align-items: center;
+  padding: 11px;
+}
+
+.participant-list .list-tile:hover {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+.participant-list .list-tile.active {
+  background-color: #f4f4f4;
+}
+
+.participant-list .list-tile .list-tile-name {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.participant-list .list-tile .list-tile-status {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #b4b3b3;
+}
+
+.participant-list .list-tile .list-tile-status i {
+  font-size: 12px;
+}
+
+.chat-container {
+  width: 100%;
+  height: 100%;
+  background-color: #edf0f6;
+  margin: 10px;
+  border-radius: 13px;
+}
+
+.chat-container-header {
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+}
+
+.chat-container-header span {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.chat-container-header .members span {
+  font-size: 10px;
+}
+
+.chat-container-messages {
+  padding: 10px 35px;
+  height: 550px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  transition: 0.5s all ease-in-out;
+}
+
+.chat-container-messages .receiver-message {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.receiver-message-text {
+  background-color: #fff;
+  padding: 10px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.receiver-message-user span {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sender-message {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.sender-message-text {
+  background-color: #bababa;
+  padding: 10px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.sender-message-user span {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.text-field-container {
+  background-color: #fff;
+  margin: 0px 34px;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.text-field-container input {
+  height: 50px;
+  border: none;
+}
+
+.text-field-container input::placeholder {
+  font-weight: 700;
+}
+
+.text-field-container a {
+  border-radius: 11px;
+}
+
+.text-field-container a i {
+  font-size: 13px;
+}
+
+.typing-symbol .symbol-label {
+  background: #fff;
+}
+
+.typing-symbol .symbol-label i {
+  font-size: 5px;
+}
+
+.typing-container {
+  display: flex;
+  align-items: center;
+  margin: 0 30px;
+}
+
+.typing-container .typing-label {
+  font-weight: 700;
+}
+
+.emoji-btn:hover {
+  cursor: pointer;
+}
+
+#chat-session
+  > div
+  > div
+  > div.col-lg-9.col-sm-8.col-6
+  > div
+  > emoji-mart
+  > section
+  > div:nth-child(4)
+  > emoji-preview
+  > div
+  > div.emoji-mart-preview-emoji
+  > ngx-emoji
+  > span
+  > span {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.emoji-mart-title-label {
+  color: #999a9c;
+  font-size: 15px !important;
+  font-weight: 300;
+}
+
+.emoji-mart-preview {
+  position: relative;
+  height: 44px !important;
+}

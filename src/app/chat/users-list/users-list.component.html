@@ -1,0 +1,74 @@
+<div class="card card-custom members-list">
+  <div class="card-body">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="form-group mb-4">
+        <div class="input-icon">
+          <input type="text" class="form-control" placeholder="Search..." />
+          <span
+            ><i class="fas fa-search primary-color" style="font-size: 13px"></i
+          ></span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      mat-dialog-content
+      style="padding-top: 18px; padding-bottom: 18px"
+      *ngIf="AllUsers$ | async as AllUsers"
+    >
+      <div
+        class="card card-custom member-card"
+        *ngFor="let user of AllUsers; let i = index"
+      >
+        <ng-container *ngIf="user.uuid !== authUser.uuid">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div
+                class="symbol symbol-40 symbol-circle mr-3"
+                *ngIf="user.image"
+              >
+                <img alt="Pic" [src]="user.image" />
+              </div>
+              <div
+                class="symbol symbol-40 symbol-circle mr-3"
+                *ngIf="!user.image"
+              >
+                <img alt="Pic" src="assets/images/media/default/default.jpg" />
+              </div>
+              <span class="d-block mr-3"
+                >{{ user.firstname }} {{ user.lastname }}</span
+              >
+            </div>
+
+            <label class="radio radio-success">
+              <input
+                type="radio"
+                name="radios5"
+                (change)="addUser(user)"
+                [checked]="checkIfExist(user)"
+              />
+              <span></span>
+            </label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer d-flex justify-content-center">
+    <a
+      href="javascript:;"
+      class="btn btn-light font-weight-bold action-btn mr-4"
+      (click)="close()"
+      >Close</a
+    >
+
+    <a
+      *ngIf="selectedUser"
+      href="javascript:;"
+      class="btn btn-success font-weight-bold action-btn"
+      (click)="addChat()"
+      >Add Chat</a
+    >
+  </div>
+</div>

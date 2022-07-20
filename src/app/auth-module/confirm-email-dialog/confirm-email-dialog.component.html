@@ -1,0 +1,53 @@
+<div class="card card-custom email-card">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Confirm Email</h3>
+    </div>
+    <div class="card-toolbar">
+      <div class="email-header text-center">
+        <span> <i class="fab fa-buffer"></i> </span>
+        <span>ARIA <span class="primary-color">PLANNER</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <mat-dialog-content>
+      <form [formGroup]="Form">
+        <div class="form-group">
+          <label for="">Email Address</label>
+          <input
+            [class.is-invalid]="
+              Form.get('email').touched && Form.get('email').invalid
+            "
+            formControlName="email"
+            type="email"
+            class="form-control"
+            placeholder="johndoe@example.com"
+          />
+          <div class="invalid-feedback">
+            <span *ngIf="Form.get('email').hasError('required')"
+              >Your Email Address is required</span
+            >
+            <span *ngIf="Form.get('email').hasError('email')"
+              >Your Email Address must be valid</span
+            >
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <a
+      href="javascript:;"
+      class="btn btn-light font-weight-bold action-btn mr-4"
+      (click)="close()"
+      >Close</a
+    >
+    <a
+      href="javascript:;"
+      class="btn btn-success action-btn font-weight-bold"
+      (click)="submit()"
+      >Send Activation Link</a
+    >
+  </div>
+</div>

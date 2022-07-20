@@ -1,0 +1,118 @@
+<app-members-navbar></app-members-navbar>
+
+<div class="container-fluid pl-0 members-container">
+  <div class="row w-100 p-0 m-0">
+    <div class="col-12">
+      <div class="my_task_header">
+        <h6 class="title">ALL MEMBERS(S)</h6>
+
+        <!-- <div>
+          <button type="button" class="btn btn-success add-task-btn">
+            <i class="fas fa-plus mr-1" style="font-size: 11px"></i>
+            ADD MEMBER
+          </button>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="col-12" style="margin-top: 20px">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="form-group mb-0">
+          <div class="input-icon">
+            <input type="text" class="form-control" placeholder="Search..." />
+            <span
+              ><i
+                class="fas fa-search primary-color"
+                style="font-size: 13px"
+              ></i
+            ></span>
+          </div>
+        </div>
+
+        <!-- <div class="dropdown" style="margin-right: 17px">
+          <button
+            class="btn btn-custom font-weight-bold"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-sort mr-2"></i>
+            FILTER BY
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div> -->
+      </div>
+
+      <div class="row mt-5" *ngIf="AllUsers$ | async as AllUsers">
+        <div
+          class="col-lg-3 col-sm-4 col-6"
+          *ngFor="let user of AllUsers; let i = index"
+        >
+          <div class="card card-custom member-card">
+            <span class="left-bar"></span>
+            <span class="right-bar"></span>
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-lg-4 col-12 text-center">
+                  <div class="symbol symbol-circle symbol-60">
+                    <img alt="Pic" *ngIf="user.image" [src]="user.image" />
+                    <img
+                      alt="Pic"
+                      *ngIf="!user.image"
+                      src="assets/images/media/default/default.jpg"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-8 col-12">
+                  <span class="d-block member-title"
+                    >{{ user.firstname }} {{ user.lastname }}</span
+                  >
+                  <span class="d-block mt-2" *ngIf="user.active">
+                    <span
+                      class="text-muted font-weight-bold mr-1"
+                      style="font-size: 11px"
+                      >ACTIVE</span
+                    >
+                    <i class="fas fa-check-circle primary-color"></i>
+                  </span>
+                  <span class="d-block mt-2" *ngIf="!user.active">
+                    <span
+                      class="text-muted font-weight-bold mr-1"
+                      style="font-size: 11px"
+                      >INACTIVE</span
+                    >
+                    <i class="fas fa-times text-danger"></i>
+                  </span>
+                  <div class="mt-3">
+                    <a
+                      href="javascript:;"
+                      (click)="deleteMember(user)"
+                      class="
+                        btn btn-light btn-text-dark btn-hover-text-dark
+                        mr-2
+                        member-btns
+                      "
+                      >Delete</a
+                    >
+                    <a
+                      href="javascript:;"
+                      (click)="viewprofile(user)"
+                      class="btn btn-success member-btns"
+                      >View</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

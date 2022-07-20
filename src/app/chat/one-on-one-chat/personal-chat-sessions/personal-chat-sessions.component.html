@@ -1,0 +1,228 @@
+<div id="chat-session">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="col-3 pr-0">
+        <div class="chart-list">
+          <div class="chart-list-header">
+            <h6>Messages</h6>
+
+            <a href="javascript:;" class="btn btn-icon btn-light btn-circle">
+              <i class="fas fa-search" style="font-size: 12px"></i>
+            </a>
+          </div>
+
+          <ul class="nav nav-tabs nav-bold nav-tabs-line">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                data-toggle="tab"
+                href="#kt_tab_pane_2_4"
+              >
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span class="nav-text">Chats</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div
+              class="tab-pane fade show active"
+              id="kt_tab_pane_2_4"
+              role="tabpanel"
+              aria-labelledby="kt_tab_pane_2_4"
+            >
+              <div class="group-chats">
+                <div
+                  class="group-chats-list mt-3"
+                  *ngIf="(Chats$ | async)?.length"
+                >
+                  <ng-container *ngFor="let chat of Chats$ | async">
+                    <ng-container
+                      *ngIf="
+                        chat.sender.user_id === authUser.uuid;
+                        else elseTemplate
+                      "
+                    >
+                      <div
+                        class="group-chats-tile"
+                        (click)="selectPersonalChat(chat)"
+                      >
+                        <div
+                          class="
+                            symbol symbol-40 symbol-lg-50 symbol-circle
+                            mr-3
+                          "
+                        >
+                          <img
+                            alt="Pic"
+                            [src]="chat.receiver.image"
+                            *ngIf="chat.receiver.image"
+                          />
+                          <img
+                            alt="Pic"
+                            src="assets/images/media/default/default.jpg"
+                            *ngIf="!chat.receiver.image"
+                          />
+                          <span
+                            [ngClass]="{
+                              'label-warning':
+                                getUserStatus(chat.receiver.user_id) === false,
+                              'label-success':
+                                getUserStatus(chat.receiver.user_id) === true
+                            }"
+                            class="
+                              label label-dot label-xl
+                              animate__animated animate__zoomIn
+                              online-label
+                            "
+                          ></span>
+                        </div>
+
+                        <div class="w-100">
+                          <section
+                            class="
+                              d-flex
+                              justify-content-between
+                              align-items-center
+                            "
+                          >
+                            <span class="group-chat-name"
+                              >{{ chat.receiver.firstname }}
+                              {{ chat.receiver.lastname }}</span
+                            >
+                            <span
+                              class="group-chat-time"
+                              *ngIf="chat.last_message"
+                              >{{
+                                formatLastMessageTime(chat.last_message.date)
+                              }}</span
+                            >
+                          </section>
+                          <section
+                            class="
+                              mt-1
+                              d-flex
+                              justify-content-between
+                              align-items-center
+                            "
+                          >
+                            <span class="d-block group-chat-last-message">{{
+                              formatMessagelength(chat.last_message.message)
+                            }}</span>
+                            <span class="d-block">
+                              <span
+                                class="d-block"
+                                *ngIf="
+                                  (getTotalUnread(chat, chat.receiver.user_id)
+                                    | async) > 0
+                                "
+                              >
+                                <span class="label label-danger mr-2">{{
+                                  getTotalUnread(chat, chat.receiver.user_id)
+                                    | async
+                                }}</span>
+                              </span>
+                            </span>
+                          </section>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <div
+                        class="group-chats-tile"
+                        (click)="selectPersonalChat(chat)"
+                      >
+                        <div
+                          class="
+                            symbol symbol-40 symbol-lg-50 symbol-circle
+                            mr-3
+                          "
+                        >
+                          <img
+                            alt="Pic"
+                            [src]="chat.sender.image"
+                            *ngIf="chat.sender.image"
+                          />
+                          <img
+                            alt="Pic"
+                            src="assets/images/media/default/default.jpg"
+                            *ngIf="!chat.sender.image"
+                          />
+                          <span
+                            [ngClass]="{
+                              'label-warning':
+                                getUserStatus(chat.receiver.user_id) === false,
+                              'label-success':
+                                getUserStatus(chat.receiver.user_id) === true
+                            }"
+                            class="
+                              label label-dot label-xl
+                              animate__animated animate__zoomIn
+                              online-label
+                            "
+                          ></span>
+                        </div>
+
+                        <div class="w-100">
+                          <section
+                            class="
+                              d-flex
+                              justify-content-between
+                              align-items-center
+                            "
+                          >
+                            <span class="group-chat-name"
+                              >{{ chat.sender.firstname }}
+                              {{ chat.sender.lastname }}</span
+                            >
+                            <span
+                              class="group-chat-time"
+                              *ngIf="chat.last_message"
+                              >{{
+                                formatLastMessageTime(chat.last_message.date)
+                              }}</span
+                            >
+                          </section>
+                          <section
+                            class="
+                              mt-1
+                              d-flex
+                              justify-content-between
+                              align-items-center
+                            "
+                          >
+                            <span class="d-block group-chat-last-message">{{
+                              formatMessagelength(chat.last_message.message)
+                            }}</span>
+                            <span
+                              class="d-block"
+                              *ngIf="
+                                (getTotalUnread(chat, chat.sender.user_id)
+                                  | async) > 0
+                              "
+                            >
+                              <span class="label label-danger mr-2">{{
+                                getTotalUnread(chat, chat.sender.user_id)
+                                  | async
+                              }}</span>
+                            </span>
+                          </section>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-9">
+        <app-welcome-page *ngIf="!selectedPersonalChat"></app-welcome-page>
+        <app-personal-messages-box
+          *ngIf="selectedPersonalChat"
+        ></app-personal-messages-box>
+      </div>
+    </div>
+  </div>
+</div>

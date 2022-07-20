@@ -1,0 +1,479 @@
+<app-profile-navbar></app-profile-navbar>
+
+<div id="profile-container" *ngIf="MemberProfile$ | async as member">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="col-4">
+        <ul class="nav flex-column nav-success">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              data-toggle="tab"
+              href="#kt_tab_pane_4_1"
+            >
+              <span class="nav-icon"><i class="fas fa-edit"></i></span>
+              <span class="nav-text">Edit Profile</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_2">
+              <span class="nav-icon"><i class="fas fa-bell"></i></span>
+              <span class="nav-text">Notification</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_3">
+              <span class="nav-icon"><i class="fas fa-tshirt"></i></span>
+              <span class="nav-text">App Theme</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
+              <span class="nav-icon"><i class="fas fa-lock"></i></span>
+              <span class="nav-text">Password & Security</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-8">
+        <div class="tab-content" id="myTabContent">
+          <div class="mb-3 mt-2 text-right">
+            <button
+              (click)="back()"
+              type="button"
+              class="btn btn-light action-btn"
+            >
+              BACK
+            </button>
+          </div>
+          <div class="tab-content">
+            <div
+              class="tab-pane fade show active"
+              id="kt_tab_pane_4_1"
+              role="tabpanel"
+              aria-labelledby="kt_tab_pane_4_1"
+            >
+              <div class="edit-profile">
+                <h6 class="edit-profile-title">Edit Profile</h6>
+                <section class="mt-4 text-center">
+                  <div
+                    class="image-input image-input-outline"
+                    id="kt_profile_avatar"
+                    style="
+                      background-image: url(assets/images/media/default/default.jpg);
+                    "
+                  >
+                    <div
+                      class="image-input-wrapper"
+                      [ngStyle]="{
+                        'background-image': 'url(' + profileImg + ')'
+                      }"
+                    ></div>
+
+                    <label
+                      class="
+                        btn
+                        btn-xs
+                        btn-icon
+                        btn-circle
+                        btn-success
+                        btn-hover-text-primary
+                        btn-shadow
+                      "
+                      data-action="change"
+                      data-toggle="tooltip"
+                      title=""
+                      data-original-title="Change avatar"
+                    >
+                      <i class="fas fa-pen icon-sm text-white"></i>
+                      <input
+                        (change)="updatephoto($event)"
+                        type="file"
+                        name="profile_avatar"
+                        accept=".png, .jpg, .jpeg"
+                      />
+                      <input type="hidden" name="profile_avatar_remove" />
+                    </label>
+                  </div>
+
+                  <span class="d-block font-weight-bold text-center"
+                    >MEMBER ID: {{ member.uuid }}</span
+                  >
+                </section>
+
+                <section style="margin-top: 20px">
+                  <form [formGroup]="Form" novalidate>
+                    <div class="row">
+                      <div class="col-lg-6 col-12">
+                        <div class="form-group">
+                          <input
+                            [class.is-invalid]="
+                              Form.get('firstname').touched &&
+                              Form.get('firstname').invalid
+                            "
+                            type="text"
+                            class="form-control"
+                            formControlName="firstname"
+                            placeholder="Enter first name"
+                          />
+                          <div class="invalid-feedback">
+                            <span
+                              *ngIf="Form.get('firstname').hasError('required')"
+                              >Your Firstname is required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-12">
+                        <div class="form-group">
+                          <input
+                            [class.is-invalid]="
+                              Form.get('lastname').touched &&
+                              Form.get('lastname').invalid
+                            "
+                            type="text"
+                            class="form-control"
+                            formControlName="lastname"
+                            placeholder="Enter last name"
+                          />
+                          <div class="invalid-feedback">
+                            <span
+                              *ngIf="Form.get('lastname').hasError('required')"
+                              >Your Lastname is required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <input
+                            [class.is-invalid]="
+                              Form.get('email').touched &&
+                              Form.get('email').invalid
+                            "
+                            type="email"
+                            class="form-control"
+                            formControlName="email"
+                            placeholder="Enter Email Address"
+                          />
+                          <div class="invalid-feedback">
+                            <span *ngIf="Form.get('email').hasError('required')"
+                              >Your Email is required</span
+                            >
+                            <span *ngIf="Form.get('email').hasError('email')"
+                              >Your Email must be valid</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <ngx-intl-tel-input
+                            [cssClass]="'form-control edit-profile-input'"
+                            [preferredCountries]="[
+                              CountryISO.Ghana,
+                              CountryISO.UnitedKingdom
+                            ]"
+                            [enableAutoCountrySelect]="false"
+                            [enablePlaceholder]="true"
+                            [searchCountryFlag]="true"
+                            [searchCountryField]="[
+                              SearchCountryField.Iso2,
+                              SearchCountryField.Name
+                            ]"
+                            [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.Ghana"
+                            [phoneValidation]="true"
+                            name="phone"
+                            formControlName="phonenumber"
+                          ></ngx-intl-tel-input>
+                          <div
+                            class="text-danger"
+                            *ngIf="
+                              Form.get('phonenumber').invalid &&
+                              Form.get('phonenumber').touched
+                            "
+                          >
+                            <span
+                              *ngIf="
+                                Form.get('phonenumber').hasError('required')
+                              "
+                              >Your phonnumber is required</span
+                            >
+                            <span
+                              *ngIf="
+                                Form.get('phonenumber').hasError(
+                                  'validatePhoneNumber'
+                                )
+                              "
+                              >Your phonnumber must be valid</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        (click)="updateInfo()"
+                      >
+                        SAVE
+                      </button>
+                    </div>
+                  </form>
+                </section>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="kt_tab_pane_4_2"
+              role="tabpanel"
+              aria-labelledby="kt_tab_pane_4_2"
+            >
+              <div class="edit-profile">
+                <h6 class="edit-profile-title">Notification</h6>
+
+                <section style="margin-top: 20px">
+                  <form [formGroup]="AlertForm" novalidate>
+                    <span
+                      class="
+                        switch switch-sm switch-success
+                        justify-content-between
+                      "
+                    >
+                      <div>
+                        <span class="d-block title">Project Notifications</span>
+                        <span class="d-block text-muted font-weight-bold"
+                          >Receive alert when project are created or assigned to
+                          a projects!
+                        </span>
+                      </div>
+                      <label>
+                        <input
+                          type="checkbox"
+                          [checked]="
+                            AlertForm.get('receive_notification').value === true
+                          "
+                          formControlName="receive_notification"
+                        />
+                        <span></span>
+                      </label>
+                    </span>
+                  </form>
+                </section>
+
+                <section
+                  style="margin-top: 30px"
+                  *ngIf="AlertForm.get('receive_notification').value === true"
+                >
+                  <h6 class="subtitle text-center">Choose Notification Type</h6>
+
+                  <div style="margin-top: 25px">
+                    <div class="row">
+                      <div class="col">
+                        <div
+                          (click)="selectNotificationType('email')"
+                          class="card card-custom alert-type-card"
+                          [ngClass]="{ active: notification_type === 'email' }"
+                        >
+                          <div class="card-body">
+                            <span class="d-block text-center">
+                              <i class="fas fa-envelope"></i>
+                            </span>
+
+                            <span
+                              class="mt-2 d-block text-center font-weight-bold"
+                              style="font-size: 14px"
+                              >Email Notifications</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div
+                          (click)="selectNotificationType('text')"
+                          class="card card-custom alert-type-card"
+                          [ngClass]="{ active: notification_type === 'text' }"
+                        >
+                          <div class="card-body">
+                            <span class="d-block text-center">
+                              <i class="fas fa-mobile-alt"></i>
+                            </span>
+
+                            <span
+                              class="mt-2 d-block text-center font-weight-bold"
+                              style="font-size: 14px"
+                              >Text Notifications</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="kt_tab_pane_4_3"
+              role="tabpanel"
+              aria-labelledby="kt_tab_pane_4_3"
+            >
+              <div class="edit-profile">
+                <h6 class="edit-profile-title">Choose Your Default theme</h6>
+
+                <div class="theme-list-container" style="margin-top: 20px">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label
+                        class="option option-plain"
+                        (click)="changeThemeType('light-theme')"
+                      >
+                        <span class="option-control">
+                          <span class="radio">
+                            <input
+                              type="radio"
+                              name="m_option_1"
+                              value="1"
+                              [checked]="theme === 'light-theme'"
+                            />
+                            <span></span>
+                          </span>
+                        </span>
+                        <span class="option-label">
+                          <div
+                            class="card card-custom theme-card"
+                            [ngClass]="{ active: theme === 'light-theme' }"
+                          >
+                            <img
+                              src="assets/images/register/light-theme.png"
+                              width="100%"
+                              alt=""
+                            />
+                          </div>
+                          <span class="option-head">
+                            <span class="option-title"> LIGHT THEME </span>
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                    <div class="col-lg-6">
+                      <label
+                        class="option option option-plain"
+                        (click)="changeThemeType('dark-theme')"
+                      >
+                        <span class="option-control">
+                          <span class="radio">
+                            <input
+                              type="radio"
+                              name="m_option_1"
+                              value="1"
+                              [checked]="theme === 'dark-theme'"
+                            />
+                            <span></span>
+                          </span>
+                        </span>
+                        <span class="option-label">
+                          <div
+                            class="card card-custom theme-card"
+                            [ngClass]="{ active: theme === 'light-theme' }"
+                          >
+                            <img
+                              src="assets/images/register/dark-theme.png"
+                              width="100%"
+                              alt=""
+                            />
+                          </div>
+                          <span class="option-head">
+                            <span class="option-title"> DARK THEME </span>
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="kt_tab_pane_4_4"
+              role="tabpanel"
+              aria-labelledby="kt_tab_pane_4_4"
+            >
+              <div class="edit-profile">
+                <h6 class="edit-profile-title">Change Password</h6>
+
+                <section style="margin-top: 20px">
+                  <form [formGroup]="PasswordForm" novalidate>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group">
+                          <input
+                          [class.is-invalid]="PasswordForm.get('currentPassword').touched && PasswordForm.get('currentPassword').invalid"
+                          formControlName="currentPassword"
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter Current Password"
+                          />
+                          <div class="invalid-feedback">
+                            <span *ngIf="PasswordForm.get('currentPassword').hasError('required')">New Password is required</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <input
+                          [class.is-invalid]="PasswordForm.get('newPassword').touched && PasswordForm.get('newPassword').invalid"
+                            formControlName="newPassword"
+                            type="password"
+                            class="form-control"
+                            placeholder="Enter New Password"
+                          />
+                          <div class="invalid-feedback">
+                            <span *ngIf="PasswordForm.get('newPassword').hasError('required')">New Password is required</span>
+                            <span *ngIf="PasswordForm.get('newPassword').hasError('minlength')">Your Password must be more than 6 characters</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <input
+                            [class.is-invalid]="PasswordForm.get('confirmPassword').touched && PasswordForm.get('confirmPassword').invalid"
+                            formControlName="confirmPassword"
+                            type="password"
+                            class="form-control"
+                            placeholder="Confirm Your Password"
+                          />
+                          <div class="invalid-feedback">
+                            <span *ngIf="PasswordForm.get('confirmPassword').hasError('required')"
+                              >Confirm your password</span
+                            >
+                            <span
+                              *ngIf="
+                              PasswordForm.get('confirmPassword').hasError('ConfirmPassword')
+                              "
+                              >Your password does not match</span
+                            >
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="button" class="btn btn-success" (click)="updatePassword()">
+                        SAVE
+                      </button>
+                    </div>
+                  </form>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

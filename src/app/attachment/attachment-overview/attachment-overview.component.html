@@ -1,0 +1,186 @@
+<app-attachment-navbar></app-attachment-navbar>
+
+<div id="attachment-container">
+  <div class="container-fluid h-100">
+    <div class="card card-custom">
+      <div class="card-header card-header-tabs-line">
+        <div class="card-title">
+          <h3 class="card-label">PROJECT ATTACHMENT(S)</h3>
+        </div>
+        <div class="card-toolbar">
+          <ul class="nav nav-tabs nav-bold nav-tabs-line nav-success">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                data-toggle="tab"
+                href="#kt_tab_pane_7_1"
+                >PERSONAL TASK(S)</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_7_2"
+                >GROUP PROJECT(S)</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="tab-content">
+          <div
+            class="tab-pane fade show active"
+            id="kt_tab_pane_7_1"
+            role="tabpanel"
+            aria-labelledby="kt_tab_pane_7_1"
+          >
+            <div
+              style="margin-top: 30px"
+              class="container-fluid"
+              *ngIf="PersonalAttachments$ | async as PersonalAttachments"
+            >
+              <app-no-attachment
+                *ngIf="!PersonalAttachments.length"
+              ></app-no-attachment>
+              <div
+                class="row"
+                style="margin-bottom: 20px"
+                *ngIf="PersonalAttachments.length"
+              >
+                <ng-container *ngFor="let group of PersonalAttachments">
+                  <div
+                    *ngIf="group.attachments.length"
+                    class="col-lg-3 col-sm-4 col-6"
+                  >
+                    <div class="card card-custom attachment-card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <img
+                            src="assets/images/media/default/folder.png"
+                            alt=""
+                          />
+                          <span class="d-block">
+                            <span
+                              (click)="
+                                viewPersonalAttachments(
+                                  group.attachments,
+                                  group
+                                )
+                              "
+                              class="label label-rounded label-light mr-2"
+                            >
+                              <i
+                                class="fas fa-ellipsis-v"
+                                style="font-size: 11px"
+                              ></i>
+                            </span>
+                          </span>
+                        </div>
+
+                        <span class="attachment-name">{{ group.title }}</span>
+
+                        <div
+                          class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                          "
+                        >
+                          <span
+                            class="d-block text-muted font-weight-bold mt-2"
+                            style="font-size: 11px"
+                            >Created At:
+                            {{ formateDate(group.createdAt) }}</span
+                          >
+                          <span
+                            class="d-block text-muted font-weight-bold mt-2"
+                            style="font-size: 11px"
+                            >{{ group.attachments.length }} files</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="kt_tab_pane_7_2"
+            role="tabpanel"
+            aria-labelledby="kt_tab_pane_7_2"
+          >
+            <div
+              style="margin-top: 30px"
+              class="container-fluid"
+              *ngIf="GroupAttachments$ | async as GroupAttachments"
+            >
+              <app-no-attachment
+                *ngIf="!GroupAttachments.length"
+              ></app-no-attachment>
+
+              <div
+                class="row"
+                style="margin-bottom: 20px"
+                *ngIf="GroupAttachments.length"
+              >
+                <ng-container *ngFor="let group of GroupAttachments">
+                  <div
+                    *ngIf="group.attachments.length"
+                    class="col-lg-3 col-sm-4 col-6"
+                  >
+                    <div class="card card-custom attachment-card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <img
+                            src="assets/images/media/default/folder.png"
+                            alt=""
+                          />
+                          <span class="d-block">
+                            <span
+                              (click)="
+                                viewAttachments(group.attachments, group)
+                              "
+                              class="label label-rounded label-light mr-2"
+                            >
+                              <i
+                                class="fas fa-ellipsis-v"
+                                style="font-size: 11px"
+                              ></i>
+                            </span>
+                          </span>
+                        </div>
+
+                        <span class="attachment-name">{{ group.title }}</span>
+
+                        <div
+                          class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                          "
+                        >
+                          <span
+                            class="d-block text-muted font-weight-bold mt-2"
+                            style="font-size: 11px"
+                            >Created At:
+                            {{ formateDate(group.createdAt) }}</span
+                          >
+                          <span
+                            class="d-block text-muted font-weight-bold mt-2"
+                            style="font-size: 11px"
+                            >{{ group.attachments.length }} files</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

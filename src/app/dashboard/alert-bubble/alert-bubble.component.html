@@ -1,0 +1,58 @@
+<div class="card card-custom alert-bubble" #alertBubble>
+  <div class="card-head">
+    <div class="card-title">
+      <span class="card-icon mr-2">
+        <span> <i class="fab fa-buffer"></i> </span>
+      </span>
+      <h3 class="card-label mb-0">NEW MESSAGE</h3>
+    </div>
+    <div class="card-toolbar">
+      <a
+        href="javascript:;"
+        (click)="hideAlert()"
+        class="btn btn-icon font-weight-bold"
+      >
+        <i class="fas fa-times text-muted" style="font-size: 11px"></i>
+      </a>
+    </div>
+  </div>
+  <div class="card-body" *ngIf="AlertMessage$ | async as AlertMessage">
+    <div class="row">
+      <div class="col-12">
+        <!-- <span class="d-block alert-title">{{ AlertMessage.title }}</span> -->
+        <div class="d-flex align-items-center">
+          <div *ngIf="AlertMessage.sender">
+            <img
+              *ngIf="!AlertMessage.sender.image"
+              src="assets/images/media/default/default.jpg"
+              style="
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                margin-right: 13px;
+              "
+              alt=""
+            />
+            <img
+              *ngIf="AlertMessage.sender.image"
+              src="AlertMessage.sender.image"
+              style="
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                margin-right: 13px;
+              "
+              alt=""
+            />
+          </div>
+          <span
+            class="d-block text-muted font-weight-bold"
+            style="font-size: 12px"
+          >
+            {{ AlertMessage.message }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

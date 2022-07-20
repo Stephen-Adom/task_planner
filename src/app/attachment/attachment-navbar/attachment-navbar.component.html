@@ -1,0 +1,43 @@
+<nav class="navbar navbar-custom">
+  <div class="container">
+    <section class="d-flex align-items-center">
+      <span class="d-block">
+        <i
+          class="fas fa-paperclip mr-2"
+          style="font-size: 19px; color: #1bc5bd"
+        ></i>
+      </span>
+      <h6 class="navbar-title">ATTACHMENT(S)</h6>
+    </section>
+    <section class="auth-section">
+      <div class="dropdown dropdown-inline">
+        <a
+          href="javascript:;"
+          class="d-flex align-items-center"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <span
+            class="symbol symbol-circle symbol-success symbol-50 mr-2"
+            *ngIf="AuthUser$ | async as authUser"
+          >
+            <img alt="Pic" [src]="authUser.image" *ngIf="authUser.image" />
+            <img
+              alt="Pic"
+              src="assets/images/media/default/default.jpg"
+              *ngIf="!authUser.image"
+            />
+          </span>
+          <span class="text-muted font-weight-bold mr-1">Hi,</span>
+          <span class="font-weight-bold">{{
+            (AuthUser$ | async)?.firstname
+          }}</span>
+        </a>
+        <div class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right">
+          ...
+        </div>
+      </div>
+    </section>
+  </div>
+</nav>

@@ -1,0 +1,54 @@
+.alert-bubble {
+  position: fixed;
+  width: 380px;
+  background: var(--background-color);
+  border-radius: 0;
+  bottom: 13px;
+  right: -420px;
+  transition: 0.7s all ease-in-out;
+  box-shadow: var(--shadow) !important;
+  border: 1px solid var(--card-border-color) !important;
+  z-index: 5;
+}
+
+.alert-bubble .card-body {
+  padding: 14px !important;
+}
+
+.alert-bubble .app-logo {
+  width: 25px;
+}
+
+.alert-bubble .card-label {
+  font-size: 12px !important;
+  color: var(--text-color);
+  text-transform: uppercase;
+  position: relative;
+  top: 1px;
+}
+
+.alert-bubble .card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 10px;
+  border-bottom: 1px solid var(--card-border-color);
+}
+
+.alert-bubble .card-head .card-title {
+  display: flex;
+  align-items: center;
+}
+
+.alert-title {
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.card-icon i {
+  color: #1bc5bd;
+  font-size: 20px;
+  margin-right: 2px;
+  transform: rotate(30deg);
+}

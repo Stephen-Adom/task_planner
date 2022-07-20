@@ -1,0 +1,22 @@
+.no-task-container {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.no-task-container .title {
+  font-size: 19px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--text-color);
+}
+
+.new-task-btn {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 15px 32px;
+  border-radius: 8px;
+}

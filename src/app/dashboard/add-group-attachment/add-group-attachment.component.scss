@@ -1,0 +1,57 @@
+#new-task-page {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.primary-color {
+  color: #1bc5bd !important;
+}
+
+.new-task-header i {
+  color: #1bc5bd;
+  font-size: 32px;
+  margin-right: 2px;
+  transform: rotate(30deg);
+}
+
+.new-task-header span:nth-child(2) {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.new-task-card {
+  border-radius: 0;
+  background-color: var(--background-color);
+}
+
+.new-task-card .card-label {
+  color: var(--text-color) !important;
+}
+
+.new-task-card .card-header {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.new-task-card .card-footer {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+.attachment::-webkit-file-upload-button {
+  color: white;
+  display: inline-block;
+  background: #07a39b;
+  border: none;
+  padding: 10px 15px;
+  font-weight: 700;
+  border-radius: 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 10pt;
+}
+
+.action-btn {
+  padding: 13px 20px;
+  border-radius: 10px;
+}

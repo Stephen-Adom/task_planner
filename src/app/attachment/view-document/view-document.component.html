@@ -1,0 +1,24 @@
+<div class="card card-custom module-card">
+  <!-- <div class="card-header card-header-tabs-line">
+    <div class="card-title">
+      <h3 class="card-label main-title" style="font-size: 14px">ATTACHMENTS</h3>
+    </div>
+    <div class="card-toolbar">
+      <button [mat-dialog-close]="false" class="btn btn-icon">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div> -->
+  <div class="card-body" style="padding: 10px">
+    <mat-dialog-content>
+      <pdf-viewer
+        [src]="pdfSrc"
+        [render-text]="true"
+        style="display: block"
+        [autoresize]="true"
+        [stick-to-page]="true"
+        [show-all]="true"
+      ></pdf-viewer>
+    </mat-dialog-content>
+  </div>
+</div>

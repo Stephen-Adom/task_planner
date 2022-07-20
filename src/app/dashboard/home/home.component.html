@@ -1,0 +1,601 @@
+<div class="container-fluid pr-0">
+  <div class="row w-100 p-0 m-0">
+    <div class="col-9" style="padding: 0 18px">
+      <div class="main-content-header">
+        <div>
+          <div class="d-flex align-items-center">
+            <h5 class="display-4">
+              Hello {{ (AuthUser$ | async)?.firstname }}
+            </h5>
+
+            <div>
+              <button
+                (click)="addNewTask()"
+                type="button"
+                class="btn btn-success new-task-btn"
+              >
+                <span>
+                  <i class="fas fa-plus" style="font-size: 10px"></i>
+                </span>
+                <span>CREATE PROJECT</span>
+              </button>
+            </div>
+          </div>
+          <span class="init-message"
+            >YOU HAVE
+            <span class="primary-color font-weight-bold">{{
+              PendingGroupTasksNumber$ | async
+            }}</span>
+            PENDING TASK TO BE COMPLETED TODAY!!!</span
+          >
+        </div>
+
+        <div>
+          <div class="form-group mb-0">
+            <div class="input-icon">
+              <input type="text" class="form-control" placeholder="Search..." />
+              <span
+                ><i
+                  class="fas fa-search primary-color"
+                  style="font-size: 13px"
+                ></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-no-task-alert
+        *ngIf="
+          (PendingGroupTasksNumber$ | async) === 0 &&
+          (InProgressGroupTasksNumber$ | async) === 0 &&
+          (CompletedGroupTasksNumber$ | async) === 0
+        "
+      ></app-no-task-alert>
+
+      <ng-container
+        *ngIf="
+          (PendingGroupTasksNumber$ | async) > 0 ||
+          (InProgressGroupTasksNumber$ | async) > 0 ||
+          (CompletedGroupTasksNumber$ | async) > 0
+        "
+      >
+        <div class="main-content-subheader">
+          <div class="row">
+            <div class="col-lg-4 col-12">
+              <div class="card card-custom pending-card-header">
+                <div
+                  class="
+                    card-body
+                    d-flex
+                    justify-content-between
+                    align-items-center
+                  "
+                >
+                  <div>
+                    <span class="mr-3">
+                      <i class="fab fa-first-order text-primary"></i>
+                    </span>
+                    <span class="title text-primary">PENDING</span>
+                  </div>
+                  <span class="d-block sub-title">{{
+                    PendingGroupTasksNumber$ | async
+                  }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-12">
+              <div class="card card-custom pending-card-header">
+                <div
+                  class="
+                    card-body
+                    d-flex
+                    justify-content-between
+                    align-items-center
+                  "
+                >
+                  <div>
+                    <span class="mr-3">
+                      <i class="far fa-clock text-warning"></i>
+                    </span>
+                    <span class="title text-warning">IN PROGRESS</span>
+                  </div>
+                  <span class="d-block sub-title">{{
+                    InProgressGroupTasksNumber$ | async
+                  }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-12">
+              <div class="card card-custom pending-card-header">
+                <div
+                  class="
+                    card-body
+                    d-flex
+                    justify-content-between
+                    align-items-center
+                  "
+                >
+                  <div>
+                    <span class="mr-3">
+                      <i class="fas fa-check-double primary-color"></i>
+                    </span>
+                    <span class="title primary-color">COMPLETED</span>
+                  </div>
+                  <span class="d-block sub-title">{{
+                    CompletedGroupTasksNumber$ | async
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-list-content">
+          <div class="row" cdkDropListGroup>
+            <div
+              cdkDropList
+              [cdkDropListData]="PendingGroupTasks$ | async"
+              cdkDropListSortingDisabled
+              class="col-lg-4 col-12"
+              style="height: 500px; overflow-y: auto"
+              *ngIf="PendingGroupTasks$ | async as PendingGroupTask"
+            >
+              <div
+                cdkDrag
+                class="card card-custom project-card"
+                *ngFor="
+                  let project of PendingGroupTask | slice: 0:3;
+                  let i = index
+                "
+              >
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h3 class="card-label">{{ project.title }}</h3>
+                    <div class="card-toolbar">
+                      <div class="dropdown dropdown-inline mr-2">
+                        <button
+                          type="button"
+                          class="btn btn-custom btn-icon btn-sm"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i
+                            class="fas fa-ellipsis-h"
+                            style="font-size: 12px"
+                          ></i>
+                        </button>
+                        <div class="dropdown-menu">
+                          <span
+                            class="dropdown-item"
+                            (click)="startProject(project)"
+                            >Start Project</span
+                          >
+                          <span
+                            class="dropdown-item"
+                            (click)="viewProject(project)"
+                            >View Project</span
+                          >
+                          <span
+                            class="dropdown-item"
+                            (click)="startGroupChat(project)"
+                            >Start Chat Session</span
+                          >
+                          <span
+                            class="dropdown-item text-danger"
+                            (click)="cancelPendingProject(project)"
+                            >Cancel Project</span
+                          >
+                        </div>
+                      </div>
+
+                      <a
+                        (click)="cancelPendingProject(project)"
+                        href="javascript:;"
+                        class="btn btn-icon btn-sm btn-hover-light-primary"
+                        data-card-tool="remove"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Remove Card"
+                      >
+                        <i class="fas fa-times" style="font-size: 12px"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="description text-muted">
+                    {{ project.description }}
+                  </div>
+
+                  <div class="additional-info">
+                    <span class="text-muted d-block">
+                      <i class="fas fa-paperclip primary-color mr-1"></i>
+                      {{ project.attachments.length }} files
+                    </span>
+                    <span class="text-muted d-block font-weight-bold">{{
+                      formateStartDate(project.startDate)
+                    }}</span>
+                  </div>
+
+                  <div class="additional-info-2" *ngIf="project.members.length">
+                    <div class="symbol-group symbol-hover">
+                      <ng-container
+                        *ngFor="let member of project.members | slice: 0:3"
+                      >
+                        <div
+                          class="symbol symbol-circle symbol-30"
+                          matTooltip="{{ member.firstname }} {{
+                            member.lastname
+                          }}"
+                          matTooltipClass="mat-tooltip-class"
+                        >
+                          <img
+                            alt="Pic"
+                            [src]="member.image"
+                            *ngIf="member.image"
+                          />
+                          <img
+                            alt="Pic"
+                            src="assets/images/media/default/default.jpg"
+                            *ngIf="!member.image"
+                          />
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="project.members.length > 3">
+                        <div
+                          class="
+                            symbol symbol-circle symbol-light-danger symbol-30
+                          "
+                        >
+                          <span class="symbol-label font-weight-bold"
+                            >{{ project.members.length - 3 }}+</span
+                          >
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              cdkDropList
+              [cdkDropListData]="InProgressGroupTasks$ | async"
+              (cdkDropListDropped)="dropPending($event)"
+              class="col-lg-4 col-12"
+              style="height: 500px; overflow-y: auto"
+              *ngIf="InProgressGroupTasks$ | async as InProgressGroupTasks"
+            >
+              <div
+                cdkDrag
+                class="card card-custom project-card"
+                *ngFor="
+                  let project of InProgressGroupTasks | slice: 0:3;
+                  let i = index
+                "
+              >
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h3 class="card-label">{{ project.title }}</h3>
+                    <div class="card-toolbar">
+                      <div class="dropdown dropdown-inline mr-2">
+                        <button
+                          type="button"
+                          class="btn btn-custom btn-icon btn-sm"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i
+                            class="fas fa-ellipsis-h"
+                            style="font-size: 12px"
+                          ></i>
+                        </button>
+                        <div class="dropdown-menu">
+                          <span
+                            class="dropdown-item"
+                            (click)="viewProject(project)"
+                            >View Project</span
+                          >
+                          <span
+                            class="dropdown-item"
+                            (click)="startGroupChat(project)"
+                            >Start Chat Session</span
+                          >
+                          <span
+                            class="dropdown-item text-success"
+                            (click)="completeProject(project)"
+                            >Complete Project</span
+                          >
+                          <span
+                            class="dropdown-item text-danger"
+                            (click)="cancelProgressProject(project)"
+                            >Cancel Project</span
+                          >
+                        </div>
+                      </div>
+
+                      <a
+                        (click)="cancelProgressProject(project)"
+                        href="javascript:;"
+                        class="btn btn-icon btn-sm btn-hover-light-primary"
+                        data-card-tool="remove"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Remove Card"
+                      >
+                        <i class="fas fa-times" style="font-size: 12px"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="description text-muted">
+                    {{ project.description }}
+                  </div>
+
+                  <div class="additional-info">
+                    <span class="text-muted d-block">
+                      <i class="fas fa-paperclip primary-color mr-1"></i>
+                      {{ project.attachments.length }} files
+                    </span>
+
+                    <div>
+                      <span class="d-block font-weight-bold text-warning">{{
+                        formateStartDate(project.startDate)
+                      }}</span>
+                      <span class="d-block font-weight-bold text-success">{{
+                        formateStartDate(project.endDate)
+                      }}</span>
+                    </div>
+                  </div>
+
+                  <div class="additional-info-2" *ngIf="project.members.length">
+                    <div class="symbol-group symbol-hover">
+                      <ng-container
+                        *ngFor="let member of project.members | slice: 0:3"
+                      >
+                        <div
+                          class="symbol symbol-circle symbol-30"
+                          matTooltip="{{ member.firstname }} {{
+                            member.lastname
+                          }}"
+                          matTooltipClass="mat-tooltip-class"
+                        >
+                          <img
+                            alt="Pic"
+                            [src]="member.image"
+                            *ngIf="member.image"
+                          />
+                          <img
+                            alt="Pic"
+                            src="assets/images/media/default/default.jpg"
+                            *ngIf="!member.image"
+                          />
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="project.members.length > 3">
+                        <div
+                          class="
+                            symbol symbol-circle symbol-light-danger symbol-30
+                          "
+                        >
+                          <span class="symbol-label font-weight-bold"
+                            >{{ project.members.length - 3 }}+</span
+                          >
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              cdkDropList
+              [cdkDropListData]="CompletedGroupTasks$ | async"
+              (cdkDropListDropped)="dropCompleted($event)"
+              class="col-lg-4 col-12"
+              style="height: 500px; overflow-y: auto"
+              *ngIf="CompletedGroupTasks$ | async as CompletedGroupTasks"
+            >
+              <div
+                cdkDrag
+                class="card card-custom project-card"
+                *ngFor="
+                  let project of CompletedGroupTasks | slice: 0:3;
+                  let i = index
+                "
+              >
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h3 class="card-label">
+                      {{ project.title }}
+                      <i
+                        class="fas fa-check-circle text-success ml-1"
+                        style="font-size: 12px"
+                      ></i>
+                    </h3>
+                  </div>
+
+                  <div class="description text-muted">
+                    {{ project.description }}
+                  </div>
+
+                  <div class="additional-info">
+                    <span class="text-muted d-block">
+                      <i class="fas fa-paperclip primary-color mr-1"></i>
+                      {{ project.attachments.length }} files
+                    </span>
+
+                    <span class="d-block font-weight-bold text-success">{{
+                      formateStartDate(project.completedDate)
+                    }}</span>
+                  </div>
+
+                  <div class="additional-info-2" *ngIf="project.members.length">
+                    <div class="symbol-group symbol-hover">
+                      <ng-container
+                        *ngFor="let member of project.members | slice: 0:3"
+                      >
+                        <div
+                          class="symbol symbol-circle symbol-30"
+                          matTooltip="{{ member.firstname }} {{
+                            member.lastname
+                          }}"
+                          matTooltipClass="mat-tooltip-class"
+                        >
+                          <img
+                            alt="Pic"
+                            [src]="member.image"
+                            *ngIf="member.image"
+                          />
+                          <img
+                            alt="Pic"
+                            src="assets/images/media/default/default.jpg"
+                            *ngIf="!member.image"
+                          />
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="project.members.length > 3">
+                        <div
+                          class="
+                            symbol symbol-circle symbol-light-danger symbol-30
+                          "
+                        >
+                          <span class="symbol-label font-weight-bold"
+                            >{{ project.members.length - 3 }}+</span
+                          >
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-3 p-0">
+      <div class="card card-custom right-sidebar">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="d-block notification-icon">
+              <i class="far fa-bell"></i>
+              <span
+                *ngIf="(UnreadActivites$ | async) > 0"
+                class="label label-dot label-danger position-absolute"
+              ></span>
+            </span>
+
+            <div class="d-flex align-items-center user-profile">
+              <span class="mr-3 user-name"
+                >{{ (AuthUser$ | async)?.firstname }}
+                {{ (AuthUser$ | async)?.lastname }}</span
+              >
+              <div
+                class="symbol symbol-50 symbol-circle auth-symbol"
+                *ngIf="AuthUser$ | async as AuthUser"
+              >
+                <img
+                  alt="Pic"
+                  [src]="AuthUser['image']"
+                  *ngIf="AuthUser['image']"
+                />
+                <img
+                  alt="Pic"
+                  src="assets/images/media/default/default.jpg"
+                  *ngIf="!AuthUser['image']"
+                />
+              </div>
+            </div>
+          </div>
+
+          <hr class="sidebar-hr" />
+
+          <div class="members-list">
+            <span class="text-muted font-weight-bold d-block title"
+              >AVAILABLE MEMBERS ({{ AllUsersNum$ | async }})</span
+            >
+
+            <ul
+              class="list-group"
+              style="margin-top: 12px"
+              *ngIf="AllUsers$ | async as AllUsers"
+            >
+              <li
+                class="list-group-item"
+                *ngFor="let user of AllUsers | slice: 0:7"
+              >
+                <div class="symbol symbol-30 symbol-circle member-symbol mr-3">
+                  <img alt="Pic" [src]="user.image" *ngIf="user.image" />
+                  <img
+                    alt="Pic"
+                    src="assets/images/media/default/default.jpg"
+                    *ngIf="!user.image"
+                  />
+                </div>
+
+                <div class="w-100">
+                  <span class="d-block"
+                    >{{ user.firstname }} {{ user.lastname }}</span
+                  >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span class="d-block text-muted" style="font-size: 11px">{{
+                      user.uuid
+                    }}</span>
+                    <span class="d-block">
+                      <a
+                        matTooltip="View Profile"
+                        matTooltipClass="mat-tooltip-class"
+                        href="javascript:;"
+                        (click)="viewMember(user)"
+                      >
+                        <i
+                          class="fas fa-eye primary-color mr-2"
+                          style="font-size: 12px"
+                        ></i>
+                      </a>
+                      <!-- <a
+                        (click)="assignProject(user)"
+                        matTooltip="Assign Project"
+                        matTooltipClass="mat-tooltip-class"
+                        href="javascript:;"
+                      >
+                        <i
+                          class="fas fa-plus primary-color"
+                          style="font-size: 12px"
+                        ></i>
+                      </a> -->
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <div style="margin-top: 26px">
+              <button
+                [routerLink]="['/members/all-members']"
+                type="button"
+                class="btn btn-success btn-block"
+              >
+                <span>SHOW ALL MEMBERS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

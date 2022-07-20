@@ -1,0 +1,64 @@
+.profile-dashboard {
+  padding: 30px;
+}
+
+.profile-dashboard .profile-card {
+  border-radius: 20px;
+  background-color: var(--background-color);
+}
+
+.card-image {
+  width: 55%;
+  margin: 20px auto;
+  border-radius: 50%;
+  padding: 4px;
+  border: 2px solid #1bc5bd;
+}
+
+.profile-card .name {
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.profile-card .status-label {
+  color: #a2a2a2;
+}
+
+.profile-hr {
+  background-color: var(--hr-background);
+  margin: 21px 0;
+}
+
+.other-profile-details .profile-detail-tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 5px;
+}
+
+.profile-dashboard span:nth-child(1) {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.profile-dashboard span:nth-child(2) {
+  font-size: 13px;
+  font-weight: 700;
+  color: #a2a2a2;
+}
+
+.update-detail-btn {
+  padding: 10px 20px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.profile-card .card-header .card-label {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+}

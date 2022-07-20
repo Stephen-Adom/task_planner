@@ -1,0 +1,133 @@
+<!-- <ngx-ui-loader
+  overlayColor="rgba(255, 255, 255, 0.658)"
+  fgsType="cube-grid"
+></ngx-ui-loader> -->
+<app-alert-bubble></app-alert-bubble>
+
+<div id="dashboard_page">
+  <div id="mySidenav" class="sidenav">
+    <div class="sidebar-header text-center">
+      <span> <i class="fab fa-buffer"></i> </span>
+      <span>ARIA <span class="primary-color">PLANNER</span></span>
+    </div>
+
+    <div class="sidebar-navigation">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          [routerLink]="['/dashboard']"
+          routerLinkActive="active"
+        >
+          <span> <i class="fas fa-home"></i> </span>
+          <span>DASHBOARD</span>
+        </li>
+
+        <li
+          class="list-group-item"
+          [routerLink]="['/task/my-task']"
+          routerLinkActive="active"
+        >
+          <span> <i class="fas fa-tasks"></i> </span>
+          <span>MY TASK(S)</span>
+        </li>
+
+        <li
+          class="list-group-item"
+          [routerLink]="['/all-projects']"
+          routerLinkActive="active"
+        >
+          <span> <i class="fas fa-boxes"></i> </span>
+          <span>ALL PROJECTS</span>
+        </li>
+
+        <!-- <li class="list-group-item">
+          <span> <i class="fas fa-users"></i> </span>
+          <span>TEAMS</span>
+        </li> -->
+
+        <li
+          class="list-group-item"
+          [routerLink]="['/attachment/overview']"
+          routerLinkActive="active"
+        >
+          <span> <i class="fas fa-magic"></i> </span>
+          <span>RESOURCES</span>
+        </li>
+
+        <li
+          class="list-group-item"
+          [routerLink]="['/chat']"
+          routerLinkActive="active"
+        >
+          <span> <i class="far fa-comments"></i> </span>
+          <span>CHATS</span>
+          <span
+            *ngIf="UnreadChats$ | async"
+            class="
+              label label-dot label-xl label-danger
+              animate__animated animate__zoomIn
+              unread-label
+            "
+          ></span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-sub-navigation">
+      <span class="text-muted font-weight-bold d-block title">FEATURES</span>
+
+      <ul class="list-group" style="margin-top: 20px">
+        <li
+          class="list-group-item"
+          [routerLink]="['/activity/overview']"
+          routerLinkActive="active"
+        >
+          <span> <i class="fas fa-sort-amount-down-alt"></i> </span>
+          <span class="mr-2">ALL ACTIVITIES</span>
+          <span
+            class="label label-danger mr-2"
+            *ngIf="(UnreadActivites$ | async) > 0"
+            >{{ UnreadActivites$ | async }}</span
+          >
+        </li>
+
+        <li
+          class="list-group-item"
+          [routerLink]="['/profile/overview']"
+          routerLinkActive="active"
+        >
+          <span> <i class="fas fa-user-circle"></i> </span>
+          <span>MY PROFILE</span>
+        </li>
+
+        <li
+          class="list-group-item"
+          (click)="toggletheme()"
+          *ngIf="theme === 'light-theme'"
+        >
+          <span> <i class="fas fa-moon"></i> </span>
+          <span>SWITCH DARK THEME</span>
+        </li>
+
+        <li
+          class="list-group-item"
+          (click)="toggletheme()"
+          *ngIf="theme === 'dark-theme'"
+        >
+          <span> <i class="fas fa-sun"></i> </span>
+          <span>SWITCH LIGHT THEME</span>
+        </li>
+
+        <li class="list-group-item" (click)="logout()">
+          <span> <i class="fas fa-sign-out-alt text-danger"></i> </span>
+          <span class="text-danger">SIGN OUT</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+  <div id="main">
+    <router-outlet></router-outlet>
+  </div>
+</div>

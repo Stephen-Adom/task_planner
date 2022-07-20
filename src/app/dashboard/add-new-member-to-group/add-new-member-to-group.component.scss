@@ -1,0 +1,45 @@
+.members-list {
+  width: 100%;
+  border-radius: 0;
+  background-color: var(--background-color);
+}
+
+.member-card {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background-color: var(--background-color);
+}
+
+.member-card:hover {
+  cursor: pointer;
+}
+
+.member-card .card-body {
+  padding: 10px 20px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.member-card .card-body span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+.members-list .form-control {
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid #e8e8e8;
+  width: 245px;
+  border: 1px solid var(--input-border);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.action-btn {
+  padding: 13px 20px;
+  border-radius: 10px;
+}

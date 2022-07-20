@@ -1,0 +1,271 @@
+<div class="card card-custom new-task-card">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Project Overview</h3>
+    </div>
+    <div class="card-toolbar">
+      <div class="new-task-header text-center">
+        <span> <i class="fab fa-buffer"></i> </span>
+        <span>ARIA <span class="primary-color">PLANNER</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <mat-dialog-content>
+      <div class="row justify-content-center p-0 w-100">
+        <div class="col-12 p-0">
+          <div class="text-center">
+            <div class="symbol symbol-success symbol-70 mr-3">
+              <span class="symbol-label font-size-h5">{{
+                getAbbrev(project.title)
+              }}</span>
+            </div>
+
+            <span class="d-block text-center project-title text-uppercase">{{
+              project.title
+            }}</span>
+            <span class="d-block project-description mt-1 text-uppercase">{{
+              project.description
+            }}</span>
+
+            <div
+              class="
+                text-center
+                mt-3
+                d-flex
+                align-items-center
+                justify-content-center
+                date-info
+              "
+            >
+              <span class="d-block mr-4">
+                <i class="far fa-calendar-alt mr-2"></i> Start Date:
+                {{ formatDate(project.startDate) }}</span
+              >
+              <span class="d-block">
+                <i class="far fa-calendar-alt mr-2"></i> Deadline:
+                {{ formatDate(project.endDate) }}</span
+              >
+            </div>
+
+            <span
+              class="
+                text-center
+                mt-3
+                d-block
+                font-weight-bold
+                time-left
+                text-success
+              "
+              *ngIf="diff > 5"
+            >
+              <i class="far fa-clock mr-2"></i> TIME LEFT TO START TIME:
+              {{ diff }} day(s)
+            </span>
+
+            <span
+              class="
+                text-center
+                mt-3
+                d-block
+                font-weight-bold
+                time-left
+                text-warning
+              "
+              *ngIf="diff >= 2 && diff <= 5"
+            >
+              <i class="far fa-clock mr-2"></i> TIME LEFT TO START TIME:
+              {{ diff }} day(s)
+            </span>
+
+            <span
+              class="
+                text-center
+                mt-3
+                d-block
+                font-weight-bold
+                time-left
+                text-danger
+              "
+              *ngIf="diff < 2"
+            >
+              <i class="far fa-clock mr-2"></i> TIME LEFT TO START TIME:
+              {{ diff }} day(s)
+            </span>
+          </div>
+
+          <div class="members-list">
+            <div class="d-flex align-items-center justify-content-between">
+              <span class="d-block members-list-title">MEMBERS LIST</span>
+              <span class="d-block">
+                <a
+                  href="javascript:;"
+                  (click)="addMember()"
+                  class="btn btn-link-success font-weight-bold"
+                >
+                  <i class="fas fa-plus" style="font-size: 11px"></i>
+                  ADD MEMBER
+                </a>
+              </span>
+            </div>
+
+            <div class="row justify-content-start mt-3">
+              <!-- PROJECT LEADER INFO -->
+              <div class="col-3" style="margin-bottom: 20px" *ngIf="leader">
+                <div class="d-flex align-items-center">
+                  <div class="symbol symbol-success mr-3 symbol-70">
+                    <img alt="Pic" [src]="leader.image" *ngIf="leader.image" />
+                    <img
+                      alt="Pic"
+                      src="assets/images/media/default/default.jpg"
+                      *ngIf="!leader.image"
+                    />
+                  </div>
+                  <div class="d-flex flex-column text-left">
+                    <span class="font-weight-bold member-name"
+                      >{{ leader.firstname }} {{ leader.lastname }}</span
+                    >
+                    <span class="text-muted font-weight-normal member-id"
+                      >ID: {{ leader.member_uuid }}</span
+                    >
+                    <span
+                      class="
+                        label label-success label-inline
+                        font-weight-bold
+                        mt-2
+                      "
+                      >Group Leader</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- PROJECT LEADER INFO -->
+
+              <!-- OTHER MEMBER INFO INFO -->
+              <div
+                class="col-3"
+                style="margin-bottom: 20px"
+                *ngFor="let member of members"
+              >
+                <div class="d-flex align-items-center">
+                  <div class="symbol symbol-success symbol-70 mr-3">
+                    <img alt="Pic" [src]="member.image" *ngIf="member.image" />
+                    <img
+                      alt="Pic"
+                      src="assets/images/media/default/default.jpg"
+                      *ngIf="!member.image"
+                    />
+                  </div>
+                  <div class="d-flex flex-column text-left">
+                    <span class="font-weight-bold member-name"
+                      >{{ member.firstname }} {{ member.lastname }}</span
+                    >
+                    <span class="text-muted font-weight-normal member-id"
+                      >ID: {{ member.member_uuid }}</span
+                    >
+                    <div class="d-flex align-items-center">
+                      <span
+                        (click)="assignLeader(member)"
+                        class="
+                          label label-outline-success label-inline
+                          font-weight-bold
+                          assign-label
+                          mt-2
+                          mr-3
+                        "
+                        >Assign</span
+                      >
+
+                      <span
+                        (click)="removeMember(member)"
+                        class="
+                          label label-danger label-inline
+                          font-weight-bold
+                          assign-label
+                          mt-2
+                        "
+                        >remove</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="attachment-list" *ngIf="project.attachments.length">
+            <div class="d-flex align-items-center justify-content-between">
+              <span class="d-block attachment-list-title">ATTACHMENTS</span>
+              <span class="d-block">
+                <a
+                  href="javascript:;"
+                  (click)="addAttachment()"
+                  class="btn btn-link-success font-weight-bold"
+                >
+                  <i class="fas fa-plus" style="font-size: 11px"></i>
+                  ADD ATTACHMENT
+                </a>
+              </span>
+            </div>
+
+            <div class="row mt-3">
+              <div
+                class="col-lg-3 col-12"
+                *ngFor="let attachment of project.attachments"
+                style="margin-bottom: 15px"
+              >
+                <div class="card card-custom attachment-card">
+                  <div class="card-body">
+                    <div class="text-center">
+                      <img
+                        src="assets/images/media/default/1200px-PDF_file_icon.svg.png"
+                        *ngIf="attachment.filetype === 'application/pdf'"
+                        alt=""
+                      />
+                      <img
+                        src="assets/images/media/default/word.png"
+                        *ngIf="
+                          attachment.filetype ===
+                          'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                        "
+                        alt=""
+                      />
+                    </div>
+
+                    <span class="attachment-name">{{ attachment.name }}</span>
+
+                    <div class="d-flex flex-column align-items-center">
+                      <span class="d-block text-muted font-weight-bold">{{
+                        formatDate(attachment.createdAt)
+                      }}</span>
+
+                      <span
+                        (click)="removeAttachment(attachment)"
+                        class="
+                          label label-light label-inline
+                          font-weight-bold
+                          assign-label
+                          mt-2
+                        "
+                        >remove</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <a
+      href="javascript:;"
+      class="btn btn-light font-weight-bold action-btn mr-4"
+      (click)="close()"
+      >Close</a
+    >
+  </div>
+</div>

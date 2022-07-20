@@ -1,0 +1,272 @@
+<div id="chat-session">
+  <div class="container-fluid h-100">
+    <div class="row w-100 h-100">
+      <div class="col-lg-3 col-sm-4 col-6">
+        <div class="members-info-container">
+          <div class="info-header">
+            <button
+              type="button"
+              class="btn btn-icon btn-secondary"
+              (click)="back()"
+            >
+              <i class="fas fa-chevron-left" style="font-size: 11px"></i>
+            </button>
+            <span class="d-block">Chat</span>
+          </div>
+
+          <div class="auth-profile" *ngIf="authUser">
+            <span class="position-absolute auth-setting-icon">
+              <i class="fas fa-cog"></i>
+            </span>
+            <div class="symbol symbol-circle symbol-130 mr-3">
+              <img alt="Pic" [src]="authUser.image" *ngIf="authUser.image" />
+              <img
+                alt="Pic"
+                src="assets/images/media/default/default.jpg"
+                *ngIf="!authUser.image"
+              />
+              <i class="symbol-badge bg-success"></i>
+            </div>
+
+            <span class="d-block text-center auth-name"
+              >{{ authUser.firstname }} {{ authUser.lastname }}</span
+            >
+            <span
+              *ngIf="online"
+              class="label label-light-success label-inline mr-2 status-label"
+              >Online</span
+            >
+          </div>
+
+          <div class="participant-list">
+            <span class="d-block list-title">Chat Group</span>
+
+            <div class="mt-3" *ngIf="GroupChat$ | async as GroupChat">
+              <div
+                [ngClass]="{ active: checkIfActive(group) }"
+                class="list-tile"
+                *ngFor="let group of GroupChat; let i = index"
+              >
+                <div class="symbol symbol-circle symbol-40 mr-3">
+                  <img alt="Pic" *ngIf="group.image" [src]="group.image" />
+                  <img
+                    alt="Pic"
+                    *ngIf="!group.image"
+                    src="assets/images/media/default/default.jpg"
+                  />
+                </div>
+
+                <div class="w-100">
+                  <div
+                    class="d-flex align-items-center justify-content-between"
+                  >
+                    <span class="list-tile-name d-block">{{ group.name }}</span>
+                    <span
+                      class="d-block font-weight-bold"
+                      style="font-size: 10px"
+                      >{{
+                        formatLastMessageTime(group.last_message.date)
+                      }}</span
+                    >
+                  </div>
+                  <span class="list-tile-status">
+                    {{ group.last_message.message }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-6">
+        <div class="chat-container" #main_chat_box>
+          <div class="chat-container-header" *ngIf="ActiveSession">
+            <span class="d-block">{{ ActiveSession.name }}</span>
+            <span
+              class="text-muted d-block members"
+              *ngIf="Participants$ | async as Participants"
+            >
+              <span *ngFor="let member of Participants"
+                >{{ member.user.firstname }},</span
+              >
+            </span>
+          </div>
+
+          <div
+            #chat_container_messages
+            class="chat-container-messages mt-3"
+            *ngIf="Messages"
+          >
+            <ng-container
+              *ngFor="let category of Messages | keyvalue; let i = index"
+            >
+              <div class="text-center" style="margin-bottom: 10px">
+                <span
+                  class="label label-success label-inline mr-2"
+                  style="font-size: 10px"
+                  >{{ formatMessageCategoryDate(category.key) }}</span
+                >
+              </div>
+
+              <ng-container
+                *ngFor="let message of category?.value; let u = index"
+              >
+                <div
+                  [id]="message._id"
+                  class="receiver-message"
+                  *ngIf="message.sender.user_id !== authUser.uuid"
+                >
+                  <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-3">
+                    <img
+                      alt="Pic"
+                      [src]="message.sender.image"
+                      *ngIf="message.sender.image"
+                    />
+                    <img
+                      alt="Pic"
+                      src="assets/images/media/default/default.jpg"
+                      *ngIf="!message.sender.image"
+                    />
+                  </div>
+
+                  <section>
+                    <div
+                      class="
+                        d-flex
+                        align-items-center
+                        mb-2
+                        receiver-message-user
+                      "
+                    >
+                      <span class="d-block mr-2"
+                        >{{ message.sender.firstname }}
+                        {{ message.sender.lastname }},
+                      </span>
+                      <span class="d-block">
+                        {{ formatTime(message.createdAt) }}
+                      </span>
+                    </div>
+                    <div class="receiver-message-text">
+                      {{ message.message }}
+                    </div>
+                  </section>
+                </div>
+
+                <div
+                  [id]="message._id"
+                  class="sender-message"
+                  *ngIf="message.sender.user_id === authUser.uuid"
+                >
+                  <section>
+                    <div
+                      class="d-flex align-items-center mb-2 sender-message-user"
+                    >
+                      <span class="d-block mr-2">You, </span>
+                      <span class="d-block">
+                        {{ formatTime(message.createdAt) }}
+                      </span>
+                    </div>
+                    <div class="sender-message-text">
+                      {{ message.message }}
+                    </div>
+                    <ng-container *ngIf="message.thread.length > 0">
+                      <ng-container *ngFor="let submessage of message.thread">
+                        <div
+                          class="sender-message-text"
+                          *ngIf="submessage != null"
+                        >
+                          {{ submessage }}
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </section>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+
+          <div class="mt-3 typing-container" *ngIf="typing">
+            <div
+              class="
+                symbol symbol-circle symbol-40 symbol-custom
+                typing-symbol
+                mr-2
+              "
+            >
+              <span class="symbol-label">
+                <i
+                  class="
+                    fas
+                    fa-circle
+                    text-danger
+                    animate__animated animate__heartBeat animate__infinite
+                    mr-1
+                  "
+                ></i>
+                <i
+                  class="
+                    fas
+                    fa-circle
+                    text-primary
+                    animate__animated
+                    animate__heartBeat
+                    animate__infinite
+                    animate__delay-3s
+                    mr-1
+                  "
+                ></i>
+                <i
+                  class="
+                    fas
+                    fa-circle
+                    text-success
+                    animate__animated
+                    animate__heartBeat
+                    animate__infinite
+                    animate__delay-4s
+                  "
+                ></i>
+              </span>
+            </div>
+            <span class="typing-label">{{ typingMessage }}</span>
+          </div>
+          <div class="mt-3 text-field-container">
+            <div class="w-100">
+              <form [formGroup]="Form">
+                <div class="input-icon input-icon-right mb-0">
+                  <input
+                    (focus)="sendTypingMessage()"
+                    type="text"
+                    class="form-control"
+                    placeholder="Write your message..."
+                    formControlName="message"
+                  />
+                  <span
+                    class="emoji-btn"
+                    (click)="isEmojiPickerVisible = !isEmojiPickerVisible"
+                    >😀</span
+                  >
+                </div>
+              </form>
+            </div>
+            <a
+              href="javascript:;"
+              class="btn btn-icon btn-success"
+              (click)="sendMessage()"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </a>
+          </div>
+          <emoji-mart
+            [style]="{ position: 'absolute', top: '224px', right: '20px' }"
+            class="emoji-mart"
+            *ngIf="isEmojiPickerVisible"
+            (emojiSelect)="addEmoji($event)"
+            title="Pick your emoji…"
+            emoji="point_up"
+          ></emoji-mart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

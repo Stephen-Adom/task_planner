@@ -1,0 +1,594 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid pr-0">
+  <div class="row w-100 p-0 m-0">
+    <div class="col-12">
+      <div class="my_task_header">
+        <h6 class="title">ALL PROJECT(S)</h6>
+
+        <div>
+          <button
+            (click)="addProject()"
+            type="button"
+            class="btn btn-success add-task-btn"
+          >
+            <i class="fas fa-plus mr-1" style="font-size: 11px"></i>
+            ADD PROJECT
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12" style="margin-top: 20px">
+      <ul class="nav nav-tabs nav-tabs-line mb-2">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">
+            <span class="nav-icon"><i class="fab fa-first-order"></i></span>
+            <span class="nav-text"
+              >Active Task({{ TotalActiveProjects$ | async }})</span
+            >
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">
+            <span class="nav-icon"><i class="fas fa-check-double"></i></span>
+            <span class="nav-text"
+              >Completed Task({{ CompletedGroupTasksNumber$ | async }})</span
+            >
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3">
+            <span class="nav-icon"><i class="fas fa-times"></i></span>
+            <span class="nav-text"
+              >Cancelled Task({{ CancelledGroupTasksNumber$ | async }})</span
+            >
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="tab"
+            href="#kt_tab_pane_4"
+            tabindex="-1"
+            aria-disabled="true"
+          >
+            <span class="nav-icon"><i class="fas fa-chart-bar"></i></span>
+            <span class="nav-text">Overall Task Stats</span>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content mt-5" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="kt_tab_pane_1"
+          role="tabpanel"
+          aria-labelledby="kt_tab_pane_1"
+        >
+          <div class="task_list_container">
+            <ng-container
+              *ngIf="
+                InProgressGroupTasksNumber$
+                  | async as InProgressGroupTasksNumber
+              "
+            >
+              <span
+                *ngIf="InProgressGroupTasksNumber > 0"
+                class="text-muted font-weight-bold d-block title mb-4"
+                >PROJECT IN PROGRESS</span
+              >
+            </ng-container>
+
+            <div
+              class="row"
+              *ngIf="InProgressGroupTasks$ | async as InProgressGroupTasks"
+            >
+              <div
+                class="col-lg-3 col-sm-4 col-6"
+                *ngFor="let project of InProgressGroupTasks; let i = index"
+              >
+                <div class="card card-custom project-card">
+                  <div class="card-body">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <h3 class="card-label">{{ project.title }}</h3>
+                      <div class="card-toolbar">
+                        <div class="dropdown dropdown-inline mr-2">
+                          <button
+                            type="button"
+                            class="btn btn-custom btn-icon btn-sm"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i
+                              class="fas fa-ellipsis-h"
+                              style="font-size: 12px"
+                            ></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <span
+                              class="dropdown-item"
+                              (click)="viewProject(project)"
+                              >View Project</span
+                            >
+                            <span
+                              class="dropdown-item"
+                              (click)="startGroupChat(project)"
+                              >Start Chat Session</span
+                            >
+
+                            <span
+                              class="dropdown-item text-success"
+                              (click)="completeProject(project)"
+                              >Complete Project</span
+                            >
+                            <span
+                              class="dropdown-item text-danger"
+                              (click)="cancelProgressProject(project)"
+                              >Cancel Project</span
+                            >
+                          </div>
+                        </div>
+
+                        <a
+                          (click)="cancelProgressProject(project)"
+                          href="javascript:;"
+                          class="btn btn-icon btn-sm btn-hover-light-primary"
+                          data-card-tool="remove"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Remove Card"
+                        >
+                          <i class="fas fa-times" style="font-size: 12px"></i>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="description text-muted">
+                      {{ project.description }}
+                    </div>
+
+                    <div class="additional-info">
+                      <span class="text-muted d-block">
+                        <i class="fas fa-paperclip primary-color mr-1"></i>
+                        {{ project.attachments.length }} files
+                      </span>
+                      <span class="text-muted d-block font-weight-bold">{{
+                        formateStartDate(project.startDate)
+                      }}</span>
+                    </div>
+
+                    <div class="additional-info-2">
+                      <div
+                        class="symbol-group symbol-hover"
+                        *ngIf="project.members.length"
+                      >
+                        <ng-container
+                          *ngFor="let member of project.members | slice: 0:3"
+                        >
+                          <div
+                            class="symbol symbol-circle symbol-30"
+                            matTooltip="{{ member.firstname }} {{
+                              member.lastname
+                            }}"
+                            matTooltipClass="mat-tooltip-class"
+                          >
+                            <img
+                              alt="Pic"
+                              [src]="member.image"
+                              *ngIf="member.image"
+                            />
+                            <img
+                              alt="Pic"
+                              src="assets/images/media/default/default.jpg"
+                              *ngIf="!member.image"
+                            />
+                          </div>
+
+                          <ng-container *ngIf="project.members.length > 3">
+                            <div
+                              class="
+                                symbol
+                                symbol-circle
+                                symbol-light-danger
+                                symbol-30
+                              "
+                            >
+                              <span class="symbol-label font-weight-bold"
+                                >{{ project.members.length - 3 }}+</span
+                              >
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+
+                      <div>
+                        <span class="label label-warning label-inline mr-2"
+                          >In Progress</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="task_list_container">
+            <ng-container
+              *ngIf="
+                PendingGroupTasksNumber$ | async as PendingGroupTasksNumber
+              "
+            >
+              <span
+                class="text-muted font-weight-bold d-block title mb-4"
+                *ngIf="PendingGroupTasksNumber > 0"
+                >UPCOMING TASK(S)</span
+              >
+            </ng-container>
+
+            <div
+              class="row"
+              *ngIf="PendingGroupTasks$ | async as PendingGroupTasks"
+            >
+              <div
+                class="col-lg-3 col-sm-4 col-6"
+                *ngFor="let project of PendingGroupTasks; let i = index"
+              >
+                <div class="card card-custom project-card">
+                  <div class="card-body">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <h3 class="card-label">{{ project.title }}</h3>
+                      <div class="card-toolbar">
+                        <div class="dropdown dropdown-inline mr-2">
+                          <button
+                            type="button"
+                            class="btn btn-custom btn-icon btn-sm"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i
+                              class="fas fa-ellipsis-h"
+                              style="font-size: 12px"
+                            ></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <span
+                              class="dropdown-item"
+                              (click)="startProject(project)"
+                              >Start Project</span
+                            >
+                            <span
+                              class="dropdown-item"
+                              (click)="viewProject(project)"
+                              >View Project</span
+                            >
+                            <span
+                              class="dropdown-item"
+                              (click)="startGroupChat(project)"
+                              >Start Chat Session</span
+                            >
+                            <span
+                              class="dropdown-item text-danger"
+                              (click)="cancelPendingProject(project)"
+                              >Cancel Project</span
+                            >
+                          </div>
+                        </div>
+
+                        <a
+                          (click)="cancelPendingProject(project)"
+                          href="javascript:;"
+                          class="btn btn-icon btn-sm btn-hover-light-primary"
+                          data-card-tool="remove"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Remove Card"
+                        >
+                          <i class="fas fa-times" style="font-size: 12px"></i>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="description text-muted">
+                      {{ project.description }}
+                    </div>
+
+                    <div class="additional-info">
+                      <span class="text-muted d-block">
+                        <i class="fas fa-paperclip primary-color mr-1"></i>
+                        {{ project.attachments.length }} files
+                      </span>
+                      <span class="text-muted d-block font-weight-bold">{{
+                        formateStartDate(project.startDate)
+                      }}</span>
+                    </div>
+
+                    <div class="additional-info-2">
+                      <div
+                        class="symbol-group symbol-hover"
+                        *ngIf="project.members.length"
+                      >
+                        <ng-container
+                          *ngFor="let member of project.members | slice: 0:3"
+                        >
+                          <div
+                            class="symbol symbol-circle symbol-30"
+                            matTooltip="{{ member.firstname }} {{
+                              member.lastname
+                            }}"
+                            matTooltipClass="mat-tooltip-class"
+                          >
+                            <img
+                              alt="Pic"
+                              [src]="member.image"
+                              *ngIf="member.image"
+                            />
+                            <img
+                              alt="Pic"
+                              src="assets/images/media/default/default.jpg"
+                              *ngIf="!member.image"
+                            />
+                          </div>
+
+                          <ng-container *ngIf="project.members.length > 3">
+                            <div
+                              class="
+                                symbol
+                                symbol-circle
+                                symbol-light-danger
+                                symbol-30
+                              "
+                            >
+                              <span class="symbol-label font-weight-bold"
+                                >{{ project.members.length - 3 }}+</span
+                              >
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+
+                      <div>
+                        <span class="label label-primary label-inline mr-2"
+                          >Pending</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="kt_tab_pane_2"
+          role="tabpanel"
+          aria-labelledby="kt_tab_pane_2"
+        >
+          <div class="task_list_container">
+            <div
+              class="row"
+              *ngIf="CompletedGroupTasks$ | async as CompletedGroupTasks"
+            >
+              <ng-container *ngIf="CompletedGroupTasks.length">
+                <div
+                  class="col-lg-3 col-sm-4 col-6"
+                  *ngFor="let project of CompletedGroupTasks; let i = index"
+                >
+                  <div class="card card-custom project-card">
+                    <div class="card-body">
+                      <div
+                        class="
+                          d-flex
+                          justify-content-between
+                          align-items-center
+                        "
+                      >
+                        <h3 class="card-label">
+                          {{ project.title }}
+                          <i
+                            class="fas fa-check-circle ml-1 text-success"
+                            style="font-size: 12px"
+                          ></i>
+                        </h3>
+                      </div>
+
+                      <div class="description text-muted">
+                        {{ project.description }}
+                      </div>
+
+                      <div class="additional-info">
+                        <span class="text-muted d-block">
+                          <i class="fas fa-paperclip primary-color mr-1"></i>
+                          {{ project.attachments.length }} files
+                        </span>
+                        <span class="text-muted d-block font-weight-bold">{{
+                          formateStartDate(project.completedDate)
+                        }}</span>
+                      </div>
+
+                      <div class="additional-info-2">
+                        <div
+                          class="symbol-group symbol-hover"
+                          *ngIf="project.members.length"
+                        >
+                          <ng-container
+                            *ngFor="let member of project.members | slice: 0:3"
+                          >
+                            <div
+                              class="symbol symbol-circle symbol-30"
+                              matTooltip="{{ member.firstname }} {{
+                                member.lastname
+                              }}"
+                              matTooltipClass="mat-tooltip-class"
+                            >
+                              <img
+                                alt="Pic"
+                                [src]="member.image"
+                                *ngIf="member.image"
+                              />
+                              <img
+                                alt="Pic"
+                                src="assets/images/media/default/default.jpg"
+                                *ngIf="!member.image"
+                              />
+                            </div>
+
+                            <ng-container *ngIf="project.members.length > 3">
+                              <div
+                                class="
+                                  symbol
+                                  symbol-circle
+                                  symbol-light-danger
+                                  symbol-30
+                                "
+                              >
+                                <span class="symbol-label font-weight-bold"
+                                  >{{ project.members.length - 3 }}+</span
+                                >
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                        </div>
+
+                        <div>
+                          <span class="label label-success label-inline mr-2"
+                            >Completed</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="!CompletedGroupTasks.length">
+                <div class="text-center empty-message w-100">
+                  <img
+                    src="assets/images/media/default/undraw_Empty_re_opql.svg"
+                    width="40%"
+                    alt="empty"
+                  />
+                  <span class="d-block">NO COMPLETED PROJECT(S) AVAILABLE</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="kt_tab_pane_3"
+          role="tabpanel"
+          aria-labelledby="kt_tab_pane_3"
+        >
+          <div class="task_list_container">
+            <div
+              class="row"
+              *ngIf="CancelledGroupTasks$ | async as CancelledGroupTasks"
+            >
+              <ng-container *ngIf="CancelledGroupTasks.length">
+                <div
+                  class="col-lg-3 col-sm-4 col-6"
+                  *ngFor="let project of CancelledGroupTasks; let i = index"
+                >
+                  <div class="card card-custom project-card">
+                    <div class="card-body">
+                      <div
+                        class="
+                          d-flex
+                          justify-content-between
+                          align-items-center
+                        "
+                      >
+                        <h3 class="card-label">
+                          {{ project.title }}
+                          <i
+                            class="fas fa-times ml-1 text-danger"
+                            style="font-size: 12px"
+                          ></i>
+                        </h3>
+                      </div>
+
+                      <div class="description text-muted">
+                        {{ project.description }}
+                      </div>
+
+                      <div class="additional-info">
+                        <span class="text-muted d-block">
+                          <i class="fas fa-paperclip primary-color mr-1"></i>
+                          {{ project.attachments.length }} files
+                        </span>
+                        <span class="text-muted d-block font-weight-bold">{{
+                          formateStartDate(project.completedDate)
+                        }}</span>
+                      </div>
+
+                      <div class="additional-info-2">
+                        <div
+                          class="symbol-group symbol-hover"
+                          *ngIf="project.members.length"
+                        >
+                          <ng-container
+                            *ngFor="let member of project.members | slice: 0:3"
+                          >
+                            <div
+                              class="symbol symbol-circle symbol-30"
+                              matTooltip="{{ member.firstname }} {{
+                                member.lastname
+                              }}"
+                              matTooltipClass="mat-tooltip-class"
+                            >
+                              <img alt="Pic" [src]="member.image" />
+                            </div>
+
+                            <ng-container *ngIf="project.members.length > 3">
+                              <div
+                                class="
+                                  symbol
+                                  symbol-circle
+                                  symbol-light-danger
+                                  symbol-30
+                                "
+                              >
+                                <span class="symbol-label font-weight-bold"
+                                  >{{ project.members.length - 3 }}+</span
+                                >
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                        </div>
+
+                        <div>
+                          <span class="label label-danger label-inline mr-2"
+                            >Cancelled</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="!CancelledGroupTasks.length">
+                <div class="text-center empty-message w-100">
+                  <img
+                    src="assets/images/media/default/undraw_Empty_re_opql.svg"
+                    width="40%"
+                    alt="empty"
+                  />
+                  <span class="d-block">NO CANCELLED PROJECT(S) AVAILABLE</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

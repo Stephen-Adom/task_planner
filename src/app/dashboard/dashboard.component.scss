@@ -1,0 +1,160 @@
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 280px; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  border-right: 1px solid var(--border-color) !important;
+  background-color: var(--background-color); /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 16px; /* Place content 60px from the top */
+  transition: 0.5s all ease-in-out; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left 0.5s;
+  margin-left: 280px;
+  // padding-left: 20px;
+  height: 100%;
+  min-height: 100vh;
+  background-color: var(--base-color);
+  transition: 0.5s all ease-in-out;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and down) 
+        */
+@media only screen and (max-width: 1200px) {
+  .sidenav {
+    width: 0;
+  }
+
+  #main {
+    transition: margin-left 0.5s;
+    margin-left: 0;
+  }
+}
+
+.sidebar-header {
+  padding: 28px 20px;
+}
+
+.primary-color {
+  color: #1bc5bd !important;
+}
+
+.sidebar-header i {
+  color: #1bc5bd;
+  font-size: 32px;
+  margin-right: 2px;
+  transform: rotate(30deg);
+}
+
+.sidebar-header span:nth-child(2) {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.sidebar-navigation {
+  padding: 6px 20px 8px 20px;
+}
+
+.sidebar-navigation .list-group .list-group-item {
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding-left: 25px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 5px;
+  border-radius: 9px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.sidebar-navigation .list-group .list-group-item span:nth-child(1) {
+  margin-right: 10px;
+}
+
+.sidebar-navigation .list-group .list-group-item:hover {
+  cursor: pointer;
+  background-color: var(--hover-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.list-group-item.active {
+  background-color: var(--list-item-active-color) !important;
+}
+
+.list-group-item.active > span i {
+  color: #1bc5bd;
+}
+.list-group-item.active > span:nth-child(2) {
+  color: #1bc5bd;
+}
+
+.sidebar-sub-navigation {
+  padding: 10px 20px 28px 20px;
+}
+
+.sidebar-sub-navigation .title {
+  color: #b0b0b0 !important;
+  font-size: 12px;
+}
+
+.sidebar-sub-navigation .list-group .list-group-item {
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding-left: 25px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 5px;
+  border-radius: 9px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.sidebar-sub-navigation .list-group .list-group-item span:nth-child(1) {
+  margin-right: 10px;
+}
+
+.sidebar-sub-navigation .list-group .list-group-item:hover {
+  cursor: pointer;
+  background-color: var(--hover-color);
+  transition: 0.5s all ease-in-out;
+}
+
+.unread-label {
+  position: absolute;
+  right: 126px;
+}

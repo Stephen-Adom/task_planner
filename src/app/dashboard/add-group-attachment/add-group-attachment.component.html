@@ -1,0 +1,44 @@
+<div class="card card-custom new-task-card">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Add Attachment(s)</h3>
+    </div>
+    <div class="card-toolbar">
+      <div class="new-task-header text-center">
+        <span> <i class="fab fa-buffer"></i> </span>
+        <span>ARIA <span class="primary-color">PLANNER</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <mat-dialog-content>
+      <form>
+        <div class="form-group mt-3">
+          <label for="exampleFormControlFile1">Attachment</label>
+          <input
+            (change)="uploadAttachment($event)"
+            multiple
+            type="file"
+            class="form-control-file attachment"
+            id="exampleFormControlFile1"
+            accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          />
+        </div>
+      </form>
+    </mat-dialog-content>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <a
+      href="javascript:;"
+      class="btn btn-light font-weight-bold action-btn mr-4"
+      (click)="close()"
+      >Close</a
+    >
+    <a
+      href="javascript:;"
+      class="btn btn-success action-btn font-weight-bold"
+      (click)="submit()"
+      >Save</a
+    >
+  </div>
+</div>

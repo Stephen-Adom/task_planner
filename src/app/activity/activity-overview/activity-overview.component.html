@@ -1,0 +1,46 @@
+<app-activity-navbar></app-activity-navbar>
+
+<div id="activity-page" *ngIf="(AllActivities$ | async).length">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <div
+          id="activity-tile"
+          class="card card-custom"
+          *ngFor="let activity of AllActivities$ | async"
+        >
+          <div class="card-body">
+            <div
+              class="symbol symbol-50 symbol-lg-60 symbol-circle mr-3"
+              style="margin-right: 35px !important"
+            >
+              <img
+                alt="Pic"
+                [src]="activity.user.image"
+                *ngIf="activity.user.image"
+              />
+              <img
+                alt="Pic"
+                src="assets/images/media/default/default.jpg"
+                *ngIf="!activity.user.image"
+              />
+            </div>
+
+            <div class="mr-4" style="margin-right: 35px !important">
+              <span class="d-block activity-title">{{
+                activity.activity
+              }}</span>
+              <span class="d-block activity-subtitle"
+                >Action by {{ activity.user.firstname }}
+                {{ activity.user.lastname }},
+                {{ formateDate(activity.createdAt) }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-no-activity *ngIf="!(AllActivities$ | async).length"></app-no-activity>

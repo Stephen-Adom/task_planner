@@ -1,0 +1,86 @@
+.card-custom {
+  background-color: var(--background-color);
+}
+
+.card-label {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+}
+
+.assign-icon i {
+  font-size: 40px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.project-card {
+  border-radius: 13px;
+  margin-bottom: 10px;
+  box-shadow: none !important;
+  border: 1px solid var(--card-border-color) !important;
+  background-color: var(--background-color);
+  border-radius: 0;
+  transition: 0.5s all ease-in-out;
+}
+
+.project-card.active {
+  border: 1px solid #1bc5bd !important;
+}
+
+.project-card:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 18px 0px !important;
+}
+
+.project-card .card-label {
+  font-size: 11px !important;
+  text-align: left;
+  color: var(--text-color) !important;
+}
+
+.project-card .card-body {
+  padding: 17px !important;
+}
+
+.project-card .card-body span {
+  color: var(--text-color);
+}
+
+.project-card hr {
+  background: var(--border-color);
+  margin: 18px 5px;
+}
+
+.project-card .card-footer {
+  padding: 15px;
+}
+
+.symbol-list {
+  margin-top: 17px;
+}
+
+.project-list-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.action-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.action-btn-container {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.member-name {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}

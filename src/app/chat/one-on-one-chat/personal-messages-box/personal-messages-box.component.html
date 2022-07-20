@@ -1,0 +1,631 @@
+<div class="main-container">
+  <div class="card card-custom chat-messages-header">
+    <div class="card-body">
+      <ng-container
+        *ngIf="SelectedChat.sender.user_id === authUser.uuid; else elseTemplate"
+      >
+        <section class="d-flex align-items-center">
+          <div class="symbol symbol-40 symbol-circle mr-3">
+            <img
+              alt="Pic"
+              [src]="SelectedChat.receiver.image"
+              *ngIf="SelectedChat.receiver.image"
+            />
+            <img
+              alt="Pic"
+              src="assets/images/media/default/default.jpg"
+              *ngIf="!SelectedChat.receiver.image"
+            />
+          </div>
+
+          <div>
+            <span class="group-chat-name"
+              >{{ SelectedChat.receiver.firstname }}
+              {{ SelectedChat.receiver.lastname }}</span
+            >
+
+            <ng-container
+              *ngIf="
+                getUserStatus(SelectedChat.receiver.user_id);
+                else elseTemplate
+              "
+            >
+              <span class="d-block d-flex align-items-center user-status">
+                <span
+                  class="
+                    label label-dot label-xl label-success
+                    mr-1
+                    animate__animated animate__zoomIn
+                    online-label
+                  "
+                ></span>
+                Online</span
+              >
+            </ng-container>
+            <ng-template #elseTemplate>
+              <span class="d-block d-flex align-items-center user-status">
+                Last Seen:
+              </span>
+            </ng-template>
+          </div>
+        </section>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <section class="d-flex align-items-center">
+          <div class="symbol symbol-40 symbol-circle mr-3">
+            <img
+              alt="Pic"
+              [src]="SelectedChat.sender.image"
+              *ngIf="SelectedChat.sender.image"
+            />
+            <img
+              alt="Pic"
+              src="assets/images/media/default/default.jpg"
+              *ngIf="!SelectedChat.sender.image"
+            />
+          </div>
+
+          <div>
+            <span class="group-chat-name"
+              >{{ SelectedChat.sender.firstname }}
+              {{ SelectedChat.sender.lastname }}</span
+            >
+            <ng-container
+              *ngIf="
+                getUserStatus(SelectedChat.sender.user_id);
+                else elseTemplate
+              "
+            >
+              <span class="d-block d-flex align-items-center user-status">
+                <span
+                  class="
+                    label label-dot label-xl label-success
+                    mr-1
+                    animate__animated animate__zoomIn
+                    online-label
+                  "
+                ></span>
+                Online</span
+              >
+            </ng-container>
+            <ng-template #elseTemplate>
+              <span class="d-block d-flex align-items-center user-status">
+                Last Seen:
+              </span>
+            </ng-template>
+          </div>
+        </section>
+      </ng-template>
+    </div>
+  </div>
+
+  <div
+    class="card card-custom chat-messages-container"
+    #chat_container_messages
+  >
+    <div class="card-body">
+      <ng-container *ngIf="Messages">
+        <ng-container *ngFor="let groupmessage of Messages | keyvalue">
+          <div class="time-divider">
+            <hr />
+            <span class="label label-light label-inline mr-2">{{
+              formatGroupDate(groupmessage.key)
+            }}</span>
+          </div>
+
+          <ng-container *ngFor="let message of groupmessage.value">
+            <div
+              class="receiver-container"
+              *ngIf="
+                (message.sender !== authUser.uuid &&
+                  message.receiver === authUser.uuid) ||
+                (message.sender !== authUser.uuid &&
+                  message.receiver !== authUser.uuid)
+              "
+            >
+              <div class="receiver-message-tile-1">
+                <section>
+                  <span class="receiver-name">
+                    {{ formatTime(message.createdAt) }}
+                  </span>
+                  <div class="receiver-message-box mt-1">
+                    <div
+                      class="d-flex justify-content-end"
+                      *ngIf="message.attachments.length"
+                    >
+                      <ng-container
+                        *ngFor="
+                          let attach of message.attachments;
+                          let i = index
+                        "
+                      >
+                        <ng-container [ngSwitch]="attach.meta.type">
+                          <ng-container *ngSwitchCase="'image/jpeg'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                [src]="attach.file"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'image/jpg'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                [src]="attach.file"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'image/png'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                [src]="attach.file"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'application/pdf'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                src="assets/images/media/default/1200px-PDF_file_icon.svg.png"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container
+                            *ngSwitchCase="
+                              'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                            "
+                          >
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                src="assets/images/media/default/word.png"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                    {{ message.message }}
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div
+              class="sender-container"
+              *ngIf="
+                message.sender === authUser.uuid &&
+                message.receiver !== authUser.uuid
+              "
+            >
+              <div class="sender-message-tile-1">
+                <section>
+                  <span class="sender-name">
+                    {{ formatTime(message.createdAt) }}
+                    <i
+                      class="fas fa-check-circle"
+                      style="font-size: 10px"
+                      *ngIf="message.status === 'sent'"
+                    ></i>
+                    <i
+                      class="fas fa-check-double"
+                      style="font-size: 10px; color: #1bc5bd"
+                      *ngIf="message.status === 'read'"
+                    ></i
+                  ></span>
+                  <div class="sender-message-box mt-1 text-right">
+                    <div
+                      class="d-flex justify-content-end"
+                      *ngIf="message.attachments.length"
+                    >
+                      <ng-container
+                        *ngFor="
+                          let attach of message.attachments;
+                          let i = index
+                        "
+                      >
+                        <ng-container [ngSwitch]="attach.meta.type">
+                          <ng-container *ngSwitchCase="'image/jpeg'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                [src]="attach.file"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'image/jpg'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                [src]="attach.file"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'image/png'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                [src]="attach.file"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'application/pdf'">
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                src="assets/images/media/default/1200px-PDF_file_icon.svg.png"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                          <ng-container
+                            *ngSwitchCase="
+                              'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                            "
+                          >
+                            <div
+                              class="attach-col px-2 position-relative img-col"
+                            >
+                              <img
+                                src="assets/images/media/default/word.png"
+                                width="100%"
+                                alt=""
+                                style="border-radius: 8px"
+                              />
+                              <a
+                                href="javascript:;"
+                                class="
+                                  btn btn-icon btn-light btn-circle
+                                  download-btn
+                                  btn-sm
+                                "
+                              >
+                                <i
+                                  class="fas fa-download"
+                                  style="font-size: 12px"
+                                ></i>
+                              </a>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+
+                    {{ message.message }}
+                  </div>
+                </section>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="chat-messages-fields">
+    <div class="my-3 typing-container" *ngIf="typing">
+      <div
+        class="symbol symbol-circle symbol-40 symbol-custom typing-symbol mr-2"
+      >
+        <span class="symbol-label">
+          <i
+            class="
+              fas
+              fa-circle
+              text-danger
+              animate__animated animate__heartBeat animate__infinite
+              mr-1
+            "
+          ></i>
+          <i
+            class="
+              fas
+              fa-circle
+              text-primary
+              animate__animated
+              animate__heartBeat
+              animate__infinite
+              animate__delay-3s
+              mr-1
+            "
+          ></i>
+          <i
+            class="
+              fas
+              fa-circle
+              text-success
+              animate__animated
+              animate__heartBeat
+              animate__infinite
+              animate__delay-4s
+            "
+          ></i>
+        </span>
+      </div>
+      <span class="typing-label">{{ typingMessage }}</span>
+    </div>
+    <div class="card card-custom">
+      <div
+        class="d-flex align-items-center"
+        style="padding: 9px"
+        *ngIf="attachments.length"
+      >
+        <div
+          class="px-2 position-relative file-holder"
+          *ngFor="let attachment of attachments; let i = index"
+        >
+          <ng-container [ngSwitch]="attachment.meta.type">
+            <ng-container *ngSwitchCase="'image/jpeg'">
+              <img
+                [src]="attachment.file"
+                class="img-thumbnail"
+                alt=""
+                style="border-radius: 8px"
+              />
+              <span class="delete-btn" (click)="deleteAttachment(i)"
+                ><i class="fas fa-times" style="font-size: 12px"></i
+              ></span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'image/jpg'">
+              <img
+                [src]="attachment.file"
+                class="img-thumbnail"
+                alt=""
+                style="border-radius: 8px"
+              />
+              <span class="delete-btn" (click)="deleteAttachment(i)"
+                ><i class="fas fa-times" style="font-size: 12px"></i
+              ></span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'image/png'">
+              <img
+                [src]="attachment.file"
+                class="img-thumbnail"
+                alt=""
+                style="border-radius: 8px"
+              />
+              <span class="delete-btn" (click)="deleteAttachment(i)"
+                ><i class="fas fa-times" style="font-size: 12px"></i
+              ></span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'application/pdf'">
+              <img
+                src="assets/images/media/default/1200px-PDF_file_icon.svg.png"
+                class="img-thumbnail"
+                alt=""
+                style="border-radius: 8px"
+              />
+              <span class="delete-btn" (click)="deleteAttachment(i)"
+                ><i class="fas fa-times" style="font-size: 12px"></i
+              ></span>
+            </ng-container>
+            <ng-container
+              *ngSwitchCase="
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+              "
+            >
+              <img
+                src="assets/images/media/default/word.png"
+                class="img-thumbnail"
+                alt=""
+                style="border-radius: 8px"
+              />
+              <span class="delete-btn" (click)="deleteAttachment(i)"
+                ><i class="fas fa-times" style="font-size: 12px"></i
+              ></span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div class="card-body d-flex align-items-center" style="padding: 15px">
+        <form [formGroup]="Form" novalidate class="w-100">
+          <div class="input-group mb-0 w-100">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <span
+                  class="emoji-btn"
+                  (click)="isEmojiPickerVisible = !isEmojiPickerVisible"
+                  >😀</span
+                >
+              </span>
+            </div>
+            <input
+              (focus)="sendTypingMessage()"
+              type="text"
+              class="form-control"
+              formControlName="message"
+              placeholder="Write your message..."
+            />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <div class="form-group my-0">
+                  <input
+                    (change)="uploadAttachment($event)"
+                    type="file"
+                    name="file"
+                    id="file"
+                    class="inputfile"
+                    multiple
+                    accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*"
+                  />
+                  <label for="file">
+                    <i class="fas fa-paperclip"></i>
+                  </label>
+                </div>
+              </span>
+            </div>
+          </div>
+        </form>
+        <a
+          (click)="sendMessage()"
+          class="btn btn-icon btn-success btn-send ml-3"
+        >
+          <i class="fab fa-telegram-plane" style="font-size: 13px"></i>
+        </a>
+      </div>
+    </div>
+
+    <emoji-mart
+      [style]="{ position: 'absolute', top: '250px', left: '20px' }"
+      class="emoji-mart"
+      *ngIf="isEmojiPickerVisible"
+      (emojiSelect)="addEmoji($event)"
+      title="Pick your emoji…"
+      emoji="point_up"
+      skin="2"
+    ></emoji-mart>
+  </div>
+</div>

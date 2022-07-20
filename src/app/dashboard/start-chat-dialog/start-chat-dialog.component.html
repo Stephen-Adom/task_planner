@@ -1,0 +1,60 @@
+<div class="card card-custom">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">CHAT INFO</h3>
+    </div>
+    <div class="card-toolbar">
+      <a href="#" class="btn btn-sm btn-icon font-weight-bold">
+        <i class="fas fa-times" style="font-size: 11px"></i>
+      </a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-3 text-center">
+        <div class="symbol symbol-circle symbol-100 mr-3">
+          <img alt="Pic" [src]="default_img" />
+        </div>
+
+        <div class="form-group mt-2">
+          <input
+            (change)="uploadAttachment($event)"
+            type="file"
+            name="file"
+            id="file"
+            class="inputfile"
+          />
+          <label for="file">Upload</label>
+        </div>
+      </div>
+      <div class="col-9">
+        <form [formGroup]="Form" novalidate>
+          <div class="form-group">
+            <input
+              [class.is-invalid]="
+                Form.get('name').touched && Form.get('name').invalid
+              "
+              type="text"
+              class="form-control"
+              placeholder="Enter Group Name"
+              formControlName="name"
+            />
+            <div class="invalid-feedback">
+              <span *ngIf="Form.get('name').hasError('required')"
+                >Field is required</span
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <a (click)="close()" class="btn btn-light-primary font-weight-bold mr-3"
+      >CANCEL</a
+    >
+    <a (click)="submit()" class="btn btn-outline-secondary font-weight-bold"
+      >START SESSION</a
+    >
+  </div>
+</div>

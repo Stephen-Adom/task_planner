@@ -1,0 +1,165 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~sweetalert2/src/sweetalert2.scss";
+@import "~animate.css";
+@import "~@ctrl/ngx-emoji-mart/picker";
+
+.light-theme {
+  --base-color: #fafafa;
+  --input-border: #e8e8e8;
+  --background-color: #fff;
+  --hover-color: #fafafa;
+  --list-item-active-color: #f1f1f1;
+  --text-color: #000;
+  --border-color: #e4e4e4;
+  --card-border-color: #eaeaea;
+  --scrollbar-thumb: #bcbcbc;
+  --hr-background: #fcfcfc;
+  --btn-light-background: #e4e6ef;
+  --btn-light-text: #7e8299;
+  --chart-list-bg: #fefbfb;
+  --chart-list-border: #e4e4e4;
+  --sender-message-color: #000;
+  --chat-list-hover: #e8e8e8;
+}
+
+.dark-theme {
+  --base-color: #030303;
+  --input-border: #6a6a6a;
+  --background-color: #202020;
+  --hover-color: #434343;
+  --list-item-active-color: #434343;
+  --text-color: #fff;
+  --border-color: #3d3d3d;
+  --card-border-color: #6a6a6a;
+  --scrollbar-thumb: #6a6a6a;
+  --hr-background: #585858;
+  --btn-light-background: #202020;
+  --btn-light-text: #fff;
+  --chart-list-bg: #202020;
+  --chart-list-border: #6a6a6a;
+  --sender-message-color: #989898;
+  --chat-list-hover: #434343;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Poppins, "Trebuchet MS", sans-serif;
+}
+
+.primary-color {
+  color: #1bc5bd !important;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--base-color);
+  border-radius: 5px;
+  transition: 0.5s all ease-in-out;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+  transition: 0.5s all ease-in-out;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb);
+}
+
+.custom-dialog .mat-dialog-container {
+  padding: 0 !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
+
+.btn-light {
+  background-color: var(--btn-light-background) !important;
+  color: var(--btn-light-text) !important;
+  border: 1px solid var(--btn-light-background) !important;
+}
+
+.swal2-icon {
+  left: 172px !important;
+}
+
+.swal2-confirm,
+.swal2-deny,
+.swal2-cancel {
+  display: inline-block;
+  padding: 8px 22px !important;
+  border-radius: 9px !important;
+}
+
+.swal2-modal {
+  border-radius: 19px !important;
+}
+
+.swal2-html-container {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+#swal2-title {
+  margin-top: 2px !important;
+}
+
+.swal2-actions {
+  margin-top: 0px !important;
+}
+
+.register-input {
+  height: 50px !important;
+  border-radius: 10px !important;
+  border: 1px solid #d9d2d2 !important;
+}
+
+.edit-profile-input {
+  width: 520px !important;
+  height: 50px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--input-border) !important;
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+}
+
+.mat-tooltip-class {
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 20px 0px !important;
+}
+
+.reading-block {
+  font-size: 52px !important;
+  transform: translateY(48px) !important;
+  color: #0a8c86 !important;
+  font-weight: 700 !important;
+}
+
+.reading-affix {
+  font-weight: 700 !important;
+  font-size: 26px !important;
+}
+
+.reading-label {
+  font-size: 13.3846px !important;
+  transform: translateY(129.487px) !important;
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "~ngx-bootstrap/datepicker/bs-datepicker";

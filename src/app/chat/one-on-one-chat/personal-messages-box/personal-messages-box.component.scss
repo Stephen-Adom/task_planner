@@ -1,0 +1,334 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.chat-messages-header {
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+  border-radius: 18px;
+  background-color: var(--background-color);
+}
+
+.chat-messages-header .card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.group-chat-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+.chat-messages-container {
+  height: 70vh;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  box-shadow: none !important;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  background-color: var(--base-color);
+}
+
+.chat-messages-fields .card {
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+  border-radius: 18px;
+  margin-bottom: 15px;
+  background-color: var(--background-color);
+}
+
+.chat-messages-fields .form-control {
+  height: 50px;
+  border: none;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.chat-messages-fields .form-control:focus {
+  border: none;
+  background-color: var(--background-color);
+}
+
+.chat-messages-fields .form-control::placeholder {
+  font-weight: 600;
+}
+
+.input-group-text {
+  background-color: transparent;
+  border: none;
+}
+
+.input-group-text:hover {
+  cursor: pointer;
+}
+
+.btn-send {
+  border-radius: 10px;
+}
+
+.time-divider hr {
+  color: var(--hr-background);
+}
+
+.time-divider {
+  position: relative;
+}
+
+.time-divider .label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -49%);
+  font-weight: 700;
+  padding: 8px 16px;
+}
+
+.receiver-container {
+  margin-bottom: 13px;
+}
+
+.receiver-message-tile-1 {
+  display: flex;
+  align-items: flex-end;
+}
+
+.receiver-message-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #1bc5bd;
+  padding: 11px 13px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px !important;
+}
+
+.receiver-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.receiver-message-box-2 {
+  display: flex;
+  flex-direction: column;
+  background-color: #1bc5bd;
+  padding: 11px 13px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: #fff;
+  margin-left: 43px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px !important;
+}
+
+.receiver-message-tile-2 {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 5px;
+}
+
+.sender-message-tile-1 {
+  display: flex;
+  align-items: flex-end;
+}
+
+.sender-message-box {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 11px 13px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px 1px !important;
+  background-color: var(--background-color);
+  color: var(--sender-message-color);
+}
+
+.sender-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.sender-message-box-2 {
+  display: flex;
+  flex-direction: column;
+  padding: 11px 13px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-left: 43px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px !important;
+  background-color: var(--background-color);
+  color: var(--sender-message-color);
+}
+
+.sender-message-tile-2 {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 5px;
+}
+
+.sender-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 13px;
+}
+
+.typing-container {
+  display: flex;
+  align-items: center;
+  margin: 0 30px;
+}
+
+.typing-container .typing-label {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.typing-symbol .symbol-label {
+  background: var(--background-color);
+}
+
+.typing-symbol .symbol-label i {
+  font-size: 5px;
+}
+
+.emoji-mart-title-label {
+  color: #999a9c;
+  font-size: 15px !important;
+  font-weight: 300;
+}
+
+.emoji-mart-preview {
+  position: relative;
+  height: 44px !important;
+}
+
+.inputfile + label {
+  cursor: pointer; /* "hand" cursor */
+}
+
+.inputfile + label {
+  font-weight: 600;
+  color: white;
+  background-color: transparent;
+  display: inline-block;
+  transition: 0.5s all ease-in-out;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: transparent;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-holder {
+  width: 200px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.file-holder img {
+  width: 100% !important;
+  height: 100%;
+}
+
+.file-holder .delete-btn {
+  position: absolute;
+  top: 11px;
+  right: 17px;
+  background: white;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px !important;
+}
+
+.file-holder .delete-btn:hover {
+  cursor: pointer;
+}
+
+.img-col {
+  transition: 0.7s all ease-in-out;
+}
+
+.download-btn {
+  position: absolute;
+  z-index: 2;
+  left: 152px;
+  bottom: 40px;
+  background: #dadada !important;
+  border: 1px solid #dadada !important;
+  opacity: 0;
+}
+
+.img-col:hover > .download-btn {
+  opacity: 0.9;
+}
+
+.attach-col {
+  width: 200px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.profile-dropdown {
+  width: 220px;
+  border: none;
+  border-radius: 14px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 18px 0px !important;
+  padding: 17px 20px;
+  background-color: var(--background-color);
+  top: 13px;
+  left: -157px;
+}
+
+.profile-dropdown .content {
+  background-color: #f0f0f0;
+  border-radius: 13px;
+  padding: 25px;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -245%);
+}
+
+.update-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dropdown-title {
+  color: var(--text-color);
+}
+
+.user-status{
+  font-size: 13px;
+  font-weight: 700;
+}

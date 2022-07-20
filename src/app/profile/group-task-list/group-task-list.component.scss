@@ -1,0 +1,53 @@
+.project-card {
+  border-radius: 13px;
+  margin-bottom: 16px;
+  transition: 0.3s all ease-in-out;
+  box-shadow: none !important;
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--background-color);
+}
+
+.project-card:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 18px 0px !important;
+}
+
+.project-card .card-label {
+  font-size: 11px !important;
+  color: var(--text-color) !important;
+}
+
+.project-card .card-body {
+  padding: 0px !important;
+}
+
+.project-card .description {
+  font-size: 12px;
+}
+
+.project-card .status-section span:nth-child(2) {
+  font-size: 11px;
+}
+
+.project-card .status-section {
+  padding: 15px 20px;
+  border-right: 1px solid #dad9d9;
+}
+
+.project-card .description-section {
+  padding: 14px 20px;
+}
+
+.project-card .description-section span:nth-child(1) {
+  text-transform: uppercase;
+  font-size: 11px;
+  color: var(--text-color);
+}
+
+.text-muted {
+  color: #aaaaaa !important;
+}
+
+.list-title {
+  color: var(--text-color);
+}
